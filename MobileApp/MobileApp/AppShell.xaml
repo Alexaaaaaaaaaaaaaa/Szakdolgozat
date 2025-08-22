@@ -89,7 +89,7 @@
     </FlyoutItem>
     <FlyoutItem Title="Profil">
         <ShellContent Route="Profile" ContentTemplate="{DataTemplate local:Profile}"/>
-    </FlyoutItem>
+    </FlyoutItem> 
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem Text="Kijelentkezés" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
