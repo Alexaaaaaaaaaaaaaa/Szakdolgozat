@@ -21,14 +21,29 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Padding="10" x:DataType="model:Item">
-                        <Label Text="{Binding Text}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-                        <Label Text="{Binding Description}" 
-                            LineBreakMode="NoWrap"
+                        <Label LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}"
+                                FontSize="16">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0} - {1} {2}">
+                                    <Binding Path="Food"/>
+                                    <Binding Path="Quantity"/>
+                                    <Binding Path="QuantityMeasure"/>
+                                </MultiBinding>
+                                
+                            </Label.Text>
+                        </Label>
+                        <Label LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
+                            FontSize="13">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0}.{1}.{2}.">
+                                    <Binding Path="Date.Year"/>
+                                    <Binding Path="Date.Month"/>
+                                    <Binding Path="Date.Day"/>
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"

@@ -1,4 +1,5 @@
 ﻿using MobileApp.Models;
+using MobileApp.Services;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -9,10 +10,12 @@ namespace MobileApp.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        private string itemId;
+        IRestService restService = new RestService();
+        private int itemId;
         private string text;
         private string description;
-        public string Id { get; set; }
+        private string expDate;
+        public int Id { get; set; }
 
         public string Text
         {
@@ -26,7 +29,7 @@ namespace MobileApp.ViewModels
             set => SetProperty(ref description, value);
         }
 
-        public string ItemId
+        public int ItemId
         {
             get
             {
@@ -38,15 +41,21 @@ namespace MobileApp.ViewModels
                 LoadItemId(value);
             }
         }
+        public string ExpiryDate
+        {
+            get => expDate;
+            set => SetProperty(ref expDate, value);
+        }
 
-        public async void LoadItemId(string itemId)
+        public async void LoadItemId(int itemId)
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = await restService.GetItemAsync(itemId);
                 Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                Text = item.Food;
+                Description = item.Quantity.ToString() + " " + item.QuantityMeasure;
+                ExpiryDate = item.Date.ToString("yyyy.MM.dd.");
             }
             catch (Exception)
             {

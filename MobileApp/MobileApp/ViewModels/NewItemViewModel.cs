@@ -1,8 +1,6 @@
 ﻿using MobileApp.Models;
+using MobileApp.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MobileApp.ViewModels
@@ -11,6 +9,7 @@ namespace MobileApp.ViewModels
     {
         private string text;
         private string description;
+        IRestService restService = new RestService();
 
         public NewItemViewModel()
         {
@@ -51,12 +50,12 @@ namespace MobileApp.ViewModels
         {
             Item newItem = new Item()
             {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
+                
+                Food = Text,
+                QuantityMeasure = Description
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await restService.AddOrUpdateItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

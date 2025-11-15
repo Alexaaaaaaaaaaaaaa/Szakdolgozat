@@ -1,8 +1,10 @@
 ﻿using MobileApp.Models;
+using MobileApp.Services;
 using MobileApp.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -12,6 +14,7 @@ namespace MobileApp.ViewModels
     {
         private Item _selectedItem;
 
+        IRestService restService = new RestService();
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
@@ -31,11 +34,12 @@ namespace MobileApp.ViewModels
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
+            ;
 
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await restService.GetItemsAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -56,7 +60,6 @@ namespace MobileApp.ViewModels
             IsBusy = true;
             SelectedItem = null;
         }
-
         public Item SelectedItem
         {
             get => _selectedItem;

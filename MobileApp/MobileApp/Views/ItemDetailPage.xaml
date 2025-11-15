@@ -10,6 +10,7 @@
         <Label Text="Mennyiség:" FontSize="Medium" />
         <Label Text="{Binding Description}" FontSize="Small"/>
         <Label Text="Lejárati idő:" FontSize="Medium" />
+        <Label Text="{Binding ExpiryDate}" FontSize="Small"/>
     </StackLayout>
     
 </ContentPage>
