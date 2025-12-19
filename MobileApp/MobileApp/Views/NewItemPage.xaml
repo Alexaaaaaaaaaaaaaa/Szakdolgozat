@@ -29,7 +29,7 @@
                 <Picker ItemsSource="{Binding PickerItems}"/>
             </Grid>
             <Label Text="Lejárati idő" FontSize="Medium" />
-            <DatePicker x:Name="dtPckrExpiration" Date="{Binding Expiration, Mode=TwoWay}"/>
+            <DatePicker x:Name="dtPckrExpiration" Date="{Binding Expiration, Mode=TwoWay}" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

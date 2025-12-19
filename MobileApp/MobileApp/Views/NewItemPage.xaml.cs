@@ -16,7 +16,7 @@ namespace MobileApp.Views
         {
             InitializeComponent();
             BindingContext = new NewItemViewModel();
+            dtPckrExpiration.Date = DateTime.Now;
         }
-        
     }
 }
