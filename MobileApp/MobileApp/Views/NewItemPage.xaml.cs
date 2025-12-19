@@ -17,5 +17,6 @@ namespace MobileApp.Views
             InitializeComponent();
             BindingContext = new NewItemViewModel();
         }
+        
     }
 }

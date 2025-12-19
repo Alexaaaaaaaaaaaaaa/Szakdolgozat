@@ -19,17 +19,17 @@
             </Grid>
             <Grid>
                 <Label Text="Megbontott" FontSize="Medium" />
-                <CheckBox x:Name="chkBxIsOpen" Margin="0,0,0,0" HorizontalOptions="End"/>
+                <CheckBox x:Name="chkBxIsOpen" Margin="0,0,0,0" HorizontalOptions="End" IsChecked="{Binding IsOpen, Mode=TwoWay}"/>
             </Grid>
             <Grid>
                 <Label Text="Egyedi lejárati idő" FontSize="Medium" />
                 <CheckBox x:Name="chkBxYes" Margin="0,0,0,0" HorizontalOptions="End"/>
             </Grid>
-            <Grid IsVisible="false"> <!-- a checkbox kipipálásánál true lesz, a datepicker pedig nem látható/disabled -->
+            <Grid IsVisible="false"> <!-- a checkbox kipipálásánál true lesz, a datepicker pedig nem látható/disabled vagy kap fix értéket és disabled lesz-->
                 <Picker ItemsSource="{Binding PickerItems}"/>
             </Grid>
             <Label Text="Lejárati idő" FontSize="Medium" />
-            <DatePicker/>
+            <DatePicker x:Name="dtPckrExpiration" Date="{Binding Expiration, Mode=TwoWay}"/>
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

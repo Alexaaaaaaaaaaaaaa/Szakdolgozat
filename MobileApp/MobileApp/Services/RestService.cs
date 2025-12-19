@@ -52,8 +52,9 @@ namespace MobileApp.Services
                 string json = JsonConvert.SerializeObject(item);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 //string url = "http://localhost:5046/fridgeApp/AddNewItems";
-                string url = "http://localhost:5046/fridgeApp/";
-                httpClient.BaseAddress = new Uri(url);
+                string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/";
+                if (httpClient.BaseAddress == null)
+                    httpClient.BaseAddress = new Uri(url);
                 HttpResponseMessage response = await httpClient.PostAsync("", content);
                 if (response.IsSuccessStatusCode)
                 {
@@ -63,10 +64,17 @@ namespace MobileApp.Services
             else
             {
                 string json = JsonConvert.SerializeObject(item);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                //string url = "http://localhost:5046/fridgeApp/UpdateItems" + item.Id.ToString();
-                string url = "http://localhost:5046/fridgeApp/" + item.Id.ToString();
-                httpClient.BaseAddress = new Uri(url);
+                var replacedJson = json.Replace("Id", "id").Replace("Food", "food")
+                    .Replace("Quantity", "quantity")
+                    .Replace("QuantityMeasure", "quantityMeasure")
+                    .Replace("Date", "date")
+                    .Replace("IsOpened", "isOpened")
+                    .Replace("T00:00:00", "");
+                StringContent content = new StringContent(replacedJson, Encoding.UTF8, "application/json");
+                //string itemcontent = content.ReadAsStringAsync().Result; Teszteléshez!!!
+                string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/";
+                if (httpClient.BaseAddress == null)
+                    httpClient.BaseAddress = new Uri(url);
                 HttpResponseMessage response = await httpClient.PostAsync("", content);
                 if (response.IsSuccessStatusCode)
                 {

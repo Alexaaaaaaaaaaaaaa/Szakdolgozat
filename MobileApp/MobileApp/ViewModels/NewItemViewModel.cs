@@ -1,6 +1,8 @@
 ﻿using MobileApp.Models;
 using MobileApp.Services;
+using MobileApp.Views;
 using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace MobileApp.ViewModels
@@ -8,8 +10,12 @@ namespace MobileApp.ViewModels
     public class NewItemViewModel : BaseViewModel
     {
         private string text;
-        private string description;
+        private int description;
+        private string measure;
+        private bool open;
+        private DateTime date;
         IRestService restService = new RestService();
+       // public ObservableCollection<Item> Items { get; }
 
         public NewItemViewModel()
         {
@@ -21,8 +27,8 @@ namespace MobileApp.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return !String.IsNullOrWhiteSpace(text);
+               // && !String.IsNullOrWhiteSpace(measure);
         }
 
         public string Text
@@ -31,10 +37,25 @@ namespace MobileApp.ViewModels
             set => SetProperty(ref text, value);
         }
 
-        public string Description
+        public int DescriptionQuantity
         {
             get => description;
             set => SetProperty(ref description, value);
+        }
+        public string DescriptionMeasure
+        {
+            get => measure;
+            set => SetProperty(ref measure, value);
+        }
+        public bool IsOpen 
+        {
+            get => open;
+            set => SetProperty(ref open, value);
+        }
+        public DateTime Expiration
+        {
+            get => date;
+            set => SetProperty(ref date, value);
         }
 
         public Command SaveCommand { get; }
@@ -48,11 +69,19 @@ namespace MobileApp.ViewModels
 
         private async void OnSave()
         {
+            var items = await restService.GetItemsAsync();
+            /*foreach (var item in items)
+            {
+                Items.Add(item);
+            }*/
             Item newItem = new Item()
             {
-                
+                Date = Expiration,
+                Quantity = DescriptionQuantity,
+                QuantityMeasure = DescriptionMeasure,
                 Food = Text,
-                QuantityMeasure = Description
+                IsOpened = IsOpen,
+                Id = items.Count+1,
             };
 
             await restService.AddOrUpdateItemAsync(newItem);
