@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,10 +32,9 @@ namespace MobileApp.Services
             }
             return await Task.FromResult(itemsList);
         }
-        public async Task<Item> GetItemAsync(int id) 
+        public async Task<Item> GetItemAsync(int id) //ItemDetailViewModel használja!
         {
             var item = new Item();
-            //string url = "http://localhost:5046/fridgeApp/GetItem"+id.ToString();
             string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/" + id.ToString();
             httpClient.BaseAddress = new Uri(url);
             HttpResponseMessage response = await httpClient.GetAsync("");
@@ -45,21 +45,11 @@ namespace MobileApp.Services
             }
             return await Task.FromResult(item);
         }
-        public async Task<bool> AddOrUpdateItemAsync(Item item)
+        public async Task<bool> AddItemAsync(Item item)
         {
             if (item.Id == 0)
             {
-                string json = JsonConvert.SerializeObject(item);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                //string url = "http://localhost:5046/fridgeApp/AddNewItems";
-                string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/";
-                if (httpClient.BaseAddress == null)
-                    httpClient.BaseAddress = new Uri(url);
-                HttpResponseMessage response = await httpClient.PostAsync("", content);
-                if (response.IsSuccessStatusCode)
-                {
-                    return await Task.FromResult(true);
-                }
+                return await Task.FromResult(false);
             }
             else
             {
@@ -80,17 +70,22 @@ namespace MobileApp.Services
                 {
                     return await Task.FromResult(true);
                 }
+                else
+                    return await Task.FromResult(false);
             }
-            return await Task.FromResult(true);
+        }
+        public async Task<bool> UpdateItemAsync(int id) //még meg kell írni!
+        {
+            return await Task.FromResult(false);
         }
         public async Task<bool > DeleteItemAsync(int id) 
         {
             if (id != 0)
             {
-                //string url = "http://localhost:5046/fridgeApp/DeleteItems" + id.ToString();
-                string url = "http://localhost:5046/fridgeApp/" + id.ToString();
-                httpClient.BaseAddress = new Uri(url);
-                HttpResponseMessage response = await httpClient.DeleteAsync("");
+                string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/" + id.ToString();
+                HttpClient httpClient2 = new HttpClient();
+                httpClient2.BaseAddress = new Uri(url);
+                HttpResponseMessage response = await httpClient2.DeleteAsync("");
                 if (response.IsSuccessStatusCode)
                 {
                     return await Task.FromResult(true);

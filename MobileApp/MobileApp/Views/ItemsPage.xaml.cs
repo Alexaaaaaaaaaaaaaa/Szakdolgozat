@@ -1,5 +1,4 @@
-﻿using MobileApp.Models;
-using MobileApp.ViewModels;
+﻿using MobileApp.ViewModels;
 using MobileApp.Views;
 using System;
 using System.Collections.Generic;
@@ -28,5 +27,6 @@ namespace MobileApp.Views
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
     }
 }

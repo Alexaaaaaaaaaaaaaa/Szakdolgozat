@@ -84,7 +84,7 @@ namespace MobileApp.ViewModels
                 Id = items.Count+1,
             };
 
-            await restService.AddOrUpdateItemAsync(newItem);
+            await restService.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

@@ -3,6 +3,7 @@ using MobileApp.Services;
 using MobileApp.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace MobileApp.ViewModels
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
+        public Command<Item> DeleteCommand { get; }
 
         public ItemsViewModel()
         {
@@ -29,12 +31,13 @@ namespace MobileApp.ViewModels
             ItemTapped = new Command<Item>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
+
+            DeleteCommand = new Command<Item>(OnDeleteItem);
         }
 
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
-            ;
 
             try
             {
@@ -82,6 +85,27 @@ namespace MobileApp.ViewModels
 
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+        }
+        async void OnDeleteItem(Item item)
+        {
+            if (item == null)
+                return;
+            await restService.DeleteItemAsync(item.Id);
+            //await ExecuteLoadItemsCommand(); //enélkül nem frissíti le az oldalt automatikusan
+            IsBusy = true;
+            try
+            {
+                Items.Clear();
+                var items = await restService.GetItemsAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

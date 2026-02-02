@@ -1,5 +1,4 @@
-﻿using MobileApp.Models;
-using MobileApp.ViewModels;
+﻿using MobileApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +9,6 @@ namespace MobileApp.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
 
         public NewItemPage()
         {

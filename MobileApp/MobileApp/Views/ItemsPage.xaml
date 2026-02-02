@@ -21,18 +21,28 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Padding="10" x:DataType="model:Item">
-                        <Label LineBreakMode="NoWrap" 
+                        <Grid>
+                            <Label LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}"
                                 FontSize="16">
-                            <Label.Text>
-                                <MultiBinding StringFormat="{}{0} - {1} {2}">
-                                    <Binding Path="Food"/>
-                                    <Binding Path="Quantity"/>
-                                    <Binding Path="QuantityMeasure"/>
-                                </MultiBinding>
-                                
-                            </Label.Text>
-                        </Label>
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1} {2}">
+                                        <Binding Path="Food"/>
+                                        <Binding Path="Quantity"/>
+                                        <Binding Path="QuantityMeasure"/>
+                                    </MultiBinding>
+
+                                </Label.Text>
+                            </Label>
+                            <Image Source="Resources/drawable/icon_about.png" HorizontalOptions="End" HeightRequest="25" WidthRequest="25" BackgroundColor="Red"> <!-- ki kell cserélni kukára -->
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=DeleteCommand}" 
+                                        CommandParameter="{Binding .}"/> <!-- lehetne hogy változzon a háttere ha rányom -->
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
                         <Label LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
                             FontSize="13">

@@ -10,7 +10,8 @@ namespace MobileApp.Services
     {
         Task<Item> GetItemAsync(int id);
         Task<List<Item>> GetItemsAsync();
-        Task<bool> AddOrUpdateItemAsync(Item items);
+        Task<bool> AddItemAsync(Item item);
+        Task<bool> UpdateItemAsync(int id);
         Task<bool> DeleteItemAsync(int id);
     }
 }
