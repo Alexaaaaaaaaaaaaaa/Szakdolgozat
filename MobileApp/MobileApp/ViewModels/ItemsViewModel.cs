@@ -90,21 +90,25 @@ namespace MobileApp.ViewModels
         {
             if (item == null)
                 return;
-            await restService.DeleteItemAsync(item.Id);
-            //await ExecuteLoadItemsCommand(); //enélkül nem frissíti le az oldalt automatikusan
-            IsBusy = true;
-            try
+            
+            if (await Application.Current.MainPage.DisplayAlert("Törlés", $"Biztosan törölni szeretnéd a \"{item.Food}\" nevű élelmiszert?", "Törlés", "Mégsem") == true)
             {
-                Items.Clear();
-                var items = await restService.GetItemsAsync();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
+                await restService.DeleteItemAsync(item.Id);
+                //await ExecuteLoadItemsCommand(); //enélkül nem frissíti le az oldalt automatikusan
+                IsBusy = true;
+                try
+                {
+                    Items.Clear();
+                    var items = await restService.GetItemsAsync();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
             }
         }
     }
