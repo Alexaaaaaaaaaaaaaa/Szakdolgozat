@@ -21,6 +21,7 @@ namespace MobileApp.ViewModels
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
         public Command<Item> DeleteCommand { get; }
+        public Command UpdateCommand { get; }
 
         public ItemsViewModel()
         {
@@ -33,6 +34,7 @@ namespace MobileApp.ViewModels
             AddItemCommand = new Command(OnAddItem);
 
             DeleteCommand = new Command<Item>(OnDeleteItem);
+            UpdateCommand = new Command<Item>(OnUpdateItem);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -110,6 +112,13 @@ namespace MobileApp.ViewModels
                     IsBusy = false;
                 }
             }
+        }
+        async void OnUpdateItem(Item item)
+        {
+            if (item == null)
+                return;
+            else
+                return;
         }
     }
 }

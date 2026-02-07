@@ -34,12 +34,23 @@
 
                                 </Label.Text>
                             </Label>
-                            <Image Source="Resources/drawable/icon_about.png" HorizontalOptions="End" HeightRequest="25" WidthRequest="25" BackgroundColor="Red"> <!-- ki kell cserélni kukára -->
+                            <Image Source="Resources/drawable/icon_about.png" HorizontalOptions="End" HeightRequest="25" WidthRequest="25" BackgroundColor="Red"> 
+                                <!-- ki kell cserélni kukára -->
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         NumberOfTapsRequired="1" 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=DeleteCommand}" 
                                         CommandParameter="{Binding .}"/> <!-- lehetne hogy változzon a háttere ha rányom -->
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Image Source="Resources/drawable/icon_feed.png" HorizontalOptions="End" HeightRequest="25" WidthRequest="25" BackgroundColor="MediumAquamarine" Margin="0,0,30,0">
+                                <!-- ki kell cserélni edit gombra (maybe toll) -->
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=UpdateCommand}" 
+                                        CommandParameter="{Binding .}"/>
+                                    <!-- lehetne hogy változzon a háttere ha rányom -->
                                 </Image.GestureRecognizers>
                             </Image>
                         </Grid>
