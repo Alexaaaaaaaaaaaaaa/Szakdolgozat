@@ -117,8 +117,8 @@ namespace MobileApp.ViewModels
         {
             if (item == null)
                 return;
-            else
-                return;
+
+            await Shell.Current.GoToAsync($"{nameof(UpdateItemPage)}?{nameof(UpdateItemViewModel.ItemId)}={item.Id}");
         }
     }
 }

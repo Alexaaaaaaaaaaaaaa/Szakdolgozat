@@ -1,8 +1,6 @@
-﻿using MobileApp.Models;
-using MobileApp.Services;
+﻿using MobileApp.Services;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MobileApp.ViewModels

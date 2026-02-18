@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp.Views.UpdateItemPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Élelmiszer neve" FontSize="Medium" />
+            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Mennyiség" FontSize="Medium" />
+            <Grid ColumnDefinitions="4" ColumnSpacing="0">
+                <Entry Text="{Binding DescriptionQuantity, Mode=TwoWay}" FontSize="Medium" Margin="-5,0,0,0" Grid.Column="1"/>
+                <Entry Text="{Binding DescriptionMeasure, Mode=TwoWay}" FontSize="Medium" Margin="0,0,0,0" Grid.Column="2"/>
+                <Label Text=" " Grid.Column="3"/>
+                <Label Text=" " Grid.Column="4"/>
+            </Grid>
+            <Grid>
+                <Label Text="Megbontott" FontSize="Medium" />
+                <CheckBox x:Name="chkBxIsOpen" Margin="0,0,0,0" HorizontalOptions="End" IsChecked="{Binding IsOpen, Mode=TwoWay}"/>
+            </Grid>
+            <Grid>
+                <Label Text="Egyedi lejárati idő" FontSize="Medium" />
+                <CheckBox x:Name="chkBxYes" Margin="0,0,0,0" HorizontalOptions="End"/>
+            </Grid>
+            <Grid IsVisible="false">
+                <!-- a checkbox kipipálásánál true lesz, a datepicker pedig nem látható/disabled vagy kap fix értéket és disabled lesz-->
+                <Picker ItemsSource="{Binding PickerItems}"/>
+            </Grid>
+            <Label Text="Lejárati idő" FontSize="Medium" />
+            <DatePicker x:Name="dtPckrExpiration" Date="{Binding Expiration, Mode=TwoWay}" />
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

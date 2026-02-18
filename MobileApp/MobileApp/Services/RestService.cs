@@ -74,9 +74,33 @@ namespace MobileApp.Services
                     return await Task.FromResult(false);
             }
         }
-        public async Task<bool> UpdateItemAsync(int id) //még meg kell írni!
+        public async Task<bool> UpdateItemAsync(int id, Item item) //még meg kell írni!
         {
-            return await Task.FromResult(false);
+            if (id == 0 || item == null)
+            {
+                return await Task.FromResult(false);
+            }
+            else
+            {
+                string json = JsonConvert.SerializeObject(item);
+                var replacedJson = json.Replace("Id", "id").Replace("Food", "food")
+                    .Replace("Quantity", "quantity")
+                    .Replace("QuantityMeasure", "quantityMeasure")
+                    .Replace("Date", "date")
+                    .Replace("IsOpened", "isOpened")
+                    .Replace("T00:00:00", "");
+                StringContent content = new StringContent(replacedJson, Encoding.UTF8, "application/json");
+                string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/" + id.ToString();
+                HttpClient httpClient3 = new HttpClient();
+                httpClient3.BaseAddress = new Uri(url);
+                HttpResponseMessage response = await httpClient3.PutAsync("", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await Task.FromResult(true);
+                }
+                else
+                    return await Task.FromResult(false);
+            }
         }
         public async Task<bool > DeleteItemAsync(int id) 
         {

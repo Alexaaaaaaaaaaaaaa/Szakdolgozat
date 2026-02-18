@@ -15,7 +15,9 @@ namespace MobileApp.ViewModels
         private bool open;
         private DateTime date;
         IRestService restService = new RestService();
-       // public ObservableCollection<Item> Items { get; }
+        // public ObservableCollection<Item> Items { get; }
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
 
         public NewItemViewModel()
         {
@@ -57,10 +59,6 @@ namespace MobileApp.ViewModels
             get => date;
             set => SetProperty(ref date, value);
         }
-
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
-
         private async void OnCancel()
         {
             // This will pop the current page off the navigation stack
