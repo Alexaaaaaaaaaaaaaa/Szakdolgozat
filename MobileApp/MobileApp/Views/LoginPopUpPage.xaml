@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileApp.Views.LoginPopUpPage"
+             Title="Bejelentkezés">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Image Source="placeholder.png" WidthRequest="100" HeightRequest="250" IsVisible="true" BackgroundColor="Red"/>
+            <StackLayout>
+                <Entry Placeholder="Email cím" Text="{Binding Email}" HorizontalTextAlignment="Center"/>
+                <Entry Placeholder="Jelszó" Text="{Binding Password}" IsPassword="True" HorizontalTextAlignment="Center"/>
+                <Button Text="Bejelentkezés" Command="{Binding LoginCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

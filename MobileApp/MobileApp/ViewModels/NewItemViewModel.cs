@@ -79,7 +79,7 @@ namespace MobileApp.ViewModels
                 QuantityMeasure = DescriptionMeasure,
                 Food = Text,
                 IsOpened = IsOpen,
-                Id = items.Count+1,
+                Id = items.Count+1
             };
 
             await restService.AddItemAsync(newItem);

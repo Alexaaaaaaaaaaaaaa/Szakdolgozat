@@ -1,0 +1,16 @@
+﻿using MobileApp.ViewModels;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace MobileApp.Views
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LoginPopUpPage : ContentPage
+    {
+        public LoginPopUpPage()
+        {
+            InitializeComponent();
+            BindingContext = new PopUpViewModel();
+        }
+    }
+}

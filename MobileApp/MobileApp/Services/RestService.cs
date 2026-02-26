@@ -124,5 +124,56 @@ namespace MobileApp.Services
                 return await Task.FromResult(false);
             }
         }
+        public async Task<List<User>> GetUsersAsync()
+        {
+            var usersList = new List<User>();
+            string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/user";
+            HttpClient httpClient4 = new HttpClient();
+            httpClient4.BaseAddress = new Uri(url);
+            HttpResponseMessage response = await httpClient4.GetAsync("");
+            if (response.IsSuccessStatusCode)
+            {
+                string content = response.Content.ReadAsStringAsync().Result;
+                usersList = JsonConvert.DeserializeObject<List<User>>(content);
+            }
+            return await Task.FromResult(usersList);
+        }
+        public async Task<User> GetUserAsync(int id)
+        {
+            var user = new User();
+            string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/user/" + id.ToString();
+            HttpClient httpClient5 = new HttpClient();
+            httpClient5.BaseAddress = new Uri(url);
+            HttpResponseMessage response = await httpClient5.GetAsync("");
+            if (response.IsSuccessStatusCode)
+            {
+                string content = response.Content.ReadAsStringAsync().Result;
+                user = JsonConvert.DeserializeObject<User>(content);
+            }
+            return await Task.FromResult(user);
+        }
+        public async Task<bool> AddUserAsync(User user)
+        {
+            if (user.UserId == 0)
+            {
+                return await Task.FromResult(false);
+            }
+            else
+            {
+                string json = JsonConvert.SerializeObject(user);
+                var replacedJson = json.Replace("User_Name", "userName");
+                StringContent content = new StringContent(replacedJson, Encoding.UTF8, "application/json");
+                string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/user";
+                HttpClient httpClient6 = new HttpClient();
+                httpClient6.BaseAddress = new Uri(url);
+                HttpResponseMessage response = await httpClient6.PostAsync("", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return await Task.FromResult(true);
+                }
+                else
+                    return await Task.FromResult(false);
+            }
+        }
     }
 }

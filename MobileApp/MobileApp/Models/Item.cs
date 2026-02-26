@@ -13,5 +13,7 @@ namespace MobileApp.Models
         public string Food { get; set; }
         public bool IsOpened { get; set; } 
         public int Id { get; set; }
+        public int UserId { get; set; }
+        public bool Wasted { get; set; }
     }
 }
