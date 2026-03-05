@@ -9,8 +9,7 @@ using Xamarin.Forms;
 namespace MobileApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
-    {
-
+    { 
         bool isBusy = false;
         public bool IsBusy
         {

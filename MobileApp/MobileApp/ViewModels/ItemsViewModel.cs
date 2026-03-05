@@ -16,6 +16,7 @@ namespace MobileApp.ViewModels
         private Item _selectedItem;
 
         IRestService restService = new RestService();
+        UserService userService = new UserService();
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
@@ -45,9 +46,11 @@ namespace MobileApp.ViewModels
             {
                 Items.Clear();
                 var items = await restService.GetItemsAsync();
+                int userId = userService.GetUserId();
                 foreach (var item in items)
                 {
-                    Items.Add(item);
+                    if(item.UserId == userId)
+                        Items.Add(item);
                 }
             }
             catch (Exception ex)

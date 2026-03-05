@@ -138,10 +138,10 @@ namespace MobileApp.Services
             }
             return await Task.FromResult(usersList);
         }
-        public async Task<User> GetUserAsync(int id)
+        public async Task<User> GetUserAsync(string email, string password)
         {
             var user = new User();
-            string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/user/" + id.ToString();
+            string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/user/" + email + "/" + password;
             HttpClient httpClient5 = new HttpClient();
             httpClient5.BaseAddress = new Uri(url);
             HttpResponseMessage response = await httpClient5.GetAsync("");

@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace MobileApp.Models
 {
     public class User

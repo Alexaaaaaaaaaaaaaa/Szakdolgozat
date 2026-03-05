@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using MobileApp.Models;
 using MobileApp.Services;
 using MobileApp.Views;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace MobileApp.ViewModels
 {
@@ -14,9 +16,14 @@ namespace MobileApp.ViewModels
         public Command RightPictureCommand { get; }
         
         RestService restService = new RestService();
+        UserService userService = new UserService();
+
         private string email;
         private string userName;
         private string password;
+
+        private User loggedInUser;
+        private int loggedInUserID;
         public PopUpViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
@@ -29,9 +36,10 @@ namespace MobileApp.ViewModels
         public string Password { get => password; set => SetProperty(ref password, value); }
         public async void OnLoginClicked(object obj)
         {
-            //ezt még meg kell írni!
-            await restService.GetUserAsync(1);
-            await Shell.Current.GoToAsync(nameof(AboutPage));
+            loggedInUser = await restService.GetUserAsync(Email,Password);
+            loggedInUserID = loggedInUser.UserId;
+            userService.SaveUserId(loggedInUserID);
+            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
         public async void OnRegisterClicked()
         {
@@ -47,7 +55,7 @@ namespace MobileApp.ViewModels
                 UserId = users.Count + 1
             };
             await restService.AddUserAsync(user);
-            await Shell.Current.GoToAsync(nameof(AboutPage));
+            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
         public async void LeftPictureSwipe(object obj)
         {
