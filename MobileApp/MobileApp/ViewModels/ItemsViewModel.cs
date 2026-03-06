@@ -16,7 +16,7 @@ namespace MobileApp.ViewModels
         private Item _selectedItem;
 
         IRestService restService = new RestService();
-        UserService userService = new UserService();
+        SecurityService securityService = new SecurityService();
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
@@ -46,7 +46,7 @@ namespace MobileApp.ViewModels
             {
                 Items.Clear();
                 var items = await restService.GetItemsAsync();
-                int userId = userService.GetUserId();
+                int userId = securityService.Decrypt().UserId;
                 foreach (var item in items)
                 {
                     if(item.UserId == userId)

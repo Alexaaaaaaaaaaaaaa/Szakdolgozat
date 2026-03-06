@@ -16,14 +16,14 @@ namespace MobileApp.ViewModels
         public Command RightPictureCommand { get; }
         
         RestService restService = new RestService();
-        UserService userService = new UserService();
+        SecurityService securityService = new SecurityService();
 
         private string email;
         private string userName;
         private string password;
 
         private User loggedInUser;
-        private int loggedInUserID;
+        //private int loggedInUserID;
         public PopUpViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
@@ -37,8 +37,9 @@ namespace MobileApp.ViewModels
         public async void OnLoginClicked(object obj)
         {
             loggedInUser = await restService.GetUserAsync(Email,Password);
-            loggedInUserID = loggedInUser.UserId;
-            userService.SaveUserId(loggedInUserID);
+            securityService.Encrypt(loggedInUser);
+            /*loggedInUserID = loggedInUser.UserId;
+            userService.SaveUserId(loggedInUserID);*/
             await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
         public async void OnRegisterClicked()

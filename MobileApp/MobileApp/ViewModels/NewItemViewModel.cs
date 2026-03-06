@@ -15,7 +15,7 @@ namespace MobileApp.ViewModels
         private bool open;
         private DateTime date;
         IRestService restService = new RestService();
-        UserService userService = new UserService();
+        SecurityService securityService = new SecurityService();
         // public ObservableCollection<Item> Items { get; }
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
@@ -82,7 +82,7 @@ namespace MobileApp.ViewModels
                 IsOpened = IsOpen,
                 Id = items.Count+1,
                 Wasted = false,
-                UserId = userService.GetUserId()
+                UserId = securityService.Decrypt().UserId
             };
 
             await restService.AddItemAsync(newItem);

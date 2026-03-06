@@ -6,7 +6,6 @@ using System.IO;
 using System.Threading.Tasks;
 using MobileApp.Models;
 using System.Runtime.ExceptionServices;
-using System.Data;
 
 namespace MobileApp.Services
 {
@@ -14,10 +13,18 @@ namespace MobileApp.Services
     {
         #region Encryption
         public bool Encrypt(User user)
-        { 
+        {
             try
             {
-                using (FileStream fileStream = new FileStream("Data/UserInfo.txt", FileMode.Open))
+                string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    dataDirectoryPath = Path.Combine(appDirectory, "Data");
+                    if (!Directory.Exists(dataDirectoryPath))
+                        Directory.CreateDirectory(dataDirectoryPath);
+                if (!File.Exists(Path.Combine(dataDirectoryPath, "UserData.txt")))
+                    File.Create(Path.Combine(dataDirectoryPath, "UserData.txt")).Close();
+                string dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
+
+                using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
                 {
                     using (Aes aes = Aes.Create())
                     {
@@ -36,7 +43,7 @@ namespace MobileApp.Services
                                 streamWriter.WriteLine(user.UserId);
                                 streamWriter.WriteLine(user.Email);
                                 streamWriter.WriteLine(user.User_Name);
-                                streamWriter.WriteLine(user.Password);
+                                //streamWriter.WriteLine(user.Password);
                                 streamWriter.WriteLine(user.Bought);
                                 streamWriter.WriteLine(user.Used);
                                 streamWriter.WriteLine(user.Wasted);
@@ -44,7 +51,7 @@ namespace MobileApp.Services
                         }
                     }
                 }
-                if (File.ReadAllText("Data/UserInfo.txt").Length != 0)
+                if (File.ReadAllText(dataFilePath).Length != 0)
                     return true;
                 else 
                     return false;
@@ -62,7 +69,10 @@ namespace MobileApp.Services
             User user = new User();
             try
             {
-                using (FileStream fileStream = new FileStream("Data/UserInfo.txt", FileMode.Open))
+                string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    dataDirectoryPath = Path.Combine(appDirectory, "Data"),
+                    dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
+                using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
                 {
                     using (Aes aes = Aes.Create())
                     {
@@ -91,7 +101,7 @@ namespace MobileApp.Services
                                     user.UserId = Int32.Parse(streamReader.ReadLine());
                                     user.Email = streamReader.ReadLine();
                                     user.User_Name = streamReader.ReadLine();
-                                    user.Password = streamReader.ReadLine();
+                                    //user.Password = streamReader.ReadLine();
                                     user.Bought = Int32.Parse(streamReader.ReadLine());
                                     user.Used = Int32.Parse(streamReader.ReadLine());
                                     user.Wasted = Int32.Parse(streamReader.ReadLine());
