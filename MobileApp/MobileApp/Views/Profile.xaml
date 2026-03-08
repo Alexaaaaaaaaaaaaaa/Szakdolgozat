@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MobileApp.Views.Profile">
+             x:Class="MobileApp.Views.Profile"
+             xmlns:local="clr-namespace:MobileApp.ViewModels"
+             Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Work in progress..."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <RefreshView x:DataType="local:ProfileViewModel" Command="{Binding IsLoggedIn}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <Label Text="Work in progress..."
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" />
+            </RefreshView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

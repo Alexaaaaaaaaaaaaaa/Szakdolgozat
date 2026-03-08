@@ -18,7 +18,7 @@ namespace MobileApp.Services
             {
                 string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                     dataDirectoryPath = Path.Combine(appDirectory, "Data");
-                    if (!Directory.Exists(dataDirectoryPath))
+                    if (!Directory.Exists(dataDirectoryPath))   
                         Directory.CreateDirectory(dataDirectoryPath);
                 if (!File.Exists(Path.Combine(dataDirectoryPath, "UserData.txt")))
                     File.Create(Path.Combine(dataDirectoryPath, "UserData.txt")).Close();
@@ -120,12 +120,12 @@ namespace MobileApp.Services
         #endregion
 
         #region Delete
-        public bool ClearUserInfo()
+        public bool ClearUserInfo(string path)
         {
             bool isCleared = false;
             try
             {
-                using (FileStream fileStream = new FileStream("Data/UserInfo.txt", FileMode.Open))
+                using (FileStream fileStream = new FileStream(path, FileMode.Open))
                 {
                     fileStream.SetLength(0);
                     if (fileStream.Length == 0)
