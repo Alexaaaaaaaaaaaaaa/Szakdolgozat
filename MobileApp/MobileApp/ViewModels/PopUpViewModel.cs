@@ -40,7 +40,7 @@ namespace MobileApp.ViewModels
             securityService.Encrypt(loggedInUser);
             /*loggedInUserID = loggedInUser.UserId;
             userService.SaveUserId(loggedInUserID);*/
-            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(Profile)}");
         }
         public async void OnRegisterClicked()
         {
@@ -56,7 +56,9 @@ namespace MobileApp.ViewModels
                 UserId = users.Count + 1
             };
             await restService.AddUserAsync(user);
-            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            loggedInUser = await restService.GetUserAsync(Email, Password);
+            securityService.Encrypt(loggedInUser);
+            await Shell.Current.GoToAsync($"//{nameof(Profile)}");
         }
         public async void LeftPictureSwipe(object obj)
         {

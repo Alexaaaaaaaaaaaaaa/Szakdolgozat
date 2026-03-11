@@ -7,10 +7,29 @@
     <ContentPage.Content>
         <StackLayout>
             <RefreshView x:DataType="local:ProfileViewModel" Command="{Binding IsLoggedIn}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-                <Label Text="Work in progress..."
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand" />
+                <Image Source="placeholder.png" BackgroundColor="Red" Margin="45,45,45,10"/>
             </RefreshView>
+            <Label Text="{Binding UserName}" HorizontalOptions="Center" FontAttributes="Bold" FontSize="Medium"/>
+            <Label Text=" "/>
+            <Grid ColumnSpacing="0" RowDefinitions="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="E-mail cím:" Margin="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="1"/>
+                    <Label Text="{Binding Email}" Margin="0,12,10,10" Grid.Column="2" Grid.Row="1" IsVisible="{Binding Visible}"/>
+                    <Label Text="{Binding Star}" Margin="0,12,10,10" Grid.Column="2" Grid.Row="1" IsVisible="{Binding Invisible}"/>
+                    <Image Source="{Binding IsEyesClosed}" Grid.Column="3" Grid.Row="1" HorizontalOptions="End" HeightRequest="20" Margin="10">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                NumberOfTapsRequired="1"
+                                Command="{Binding EmailVisible}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+                <Button Text="Jelszó megváltoztatása" TextColor="Gray" BackgroundColor="Transparent" FontSize="14" FontAttributes="Bold" TextTransform="None" HorizontalOptions="Start"/>
+                <Button Text="Kijelentkezés" Command="{Binding LogOut}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
