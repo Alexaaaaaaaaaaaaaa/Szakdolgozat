@@ -19,6 +19,7 @@ namespace MobileApp
             Routing.RegisterRoute(nameof(LoginPopUpPage), typeof(LoginPopUpPage));
             Routing.RegisterRoute(nameof(RegisterPopUpPage), typeof(RegisterPopUpPage));
             Routing.RegisterRoute(nameof(NotLoggedInProfile), typeof(NotLoggedInProfile));
+            Routing.RegisterRoute(nameof(ChangePassword), typeof(ChangePassword));
         }
 
         SecurityService securityService = new SecurityService();

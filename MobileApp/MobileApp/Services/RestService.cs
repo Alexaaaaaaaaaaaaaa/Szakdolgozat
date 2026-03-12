@@ -175,5 +175,21 @@ namespace MobileApp.Services
                     return await Task.FromResult(false);
             }
         }
+        public async Task<bool> UpdateUserAsync(string email, string password, User user)
+        {
+            string json = JsonConvert.SerializeObject(user);
+            var replacedJson = json.Replace("User_Name", "userName");
+            StringContent content = new StringContent(replacedJson, Encoding.UTF8, "application/json");
+            string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/user/" + email + "/" + password;
+            HttpClient httpClient7 = new HttpClient();
+            httpClient7.BaseAddress = new Uri(url);
+            HttpResponseMessage response = await httpClient7.PutAsync("", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return await Task.FromResult(true);
+            }
+            else
+                return await Task.FromResult(false);
+        }
     }
 }

@@ -28,7 +28,7 @@
                         </Image.GestureRecognizers>
                     </Image>
                 </Grid>
-                <Button Text="Jelszó megváltoztatása" TextColor="Gray" BackgroundColor="Transparent" FontSize="14" FontAttributes="Bold" TextTransform="None" HorizontalOptions="Start"/>
+                <Button Text="Jelszó megváltoztatása" Command="{Binding ChangePassword}" TextColor="Gray" BackgroundColor="Transparent" FontSize="14" FontAttributes="Bold" TextTransform="None" HorizontalOptions="Start"/>
                 <Button Text="Kijelentkezés" Command="{Binding LogOut}"/>
         </StackLayout>
     </ContentPage.Content>

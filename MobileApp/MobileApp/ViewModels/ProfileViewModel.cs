@@ -12,6 +12,7 @@ namespace MobileApp.ViewModels
     {
         public Command IsLoggedIn { get; }
         public Command EmailVisible { get; }
+        public Command ChangePassword { get; }
         public Command LogOut { get; }
 
         SecurityService securityService = new SecurityService();
@@ -27,6 +28,7 @@ namespace MobileApp.ViewModels
             Title = "Profil";
             IsLoggedIn = new Command(async () => await OnIsLoggedIn());
             EmailVisible = new Command(EyeStage);
+            ChangePassword = new Command(OnChangePassword);
             LogOut = new Command(OnLogOut);
             UserName = GetUserName();
             Email = GetUserEmail();
@@ -109,6 +111,10 @@ namespace MobileApp.ViewModels
                 Visible = false;
                 IsEyesClosed = EyePicture(Invisible, Visible);
             }
+        }
+        public async void OnChangePassword()
+        {
+            await Shell.Current.GoToAsync($"{nameof(ChangePassword)}");
         }
         public async void OnLogOut()
         {

@@ -43,7 +43,7 @@ namespace MobileApp.Services
                                 streamWriter.WriteLine(user.UserId);
                                 streamWriter.WriteLine(user.Email);
                                 streamWriter.WriteLine(user.User_Name);
-                                //streamWriter.WriteLine(user.Password);
+                                streamWriter.WriteLine(user.Password);
                                 streamWriter.WriteLine(user.Bought);
                                 streamWriter.WriteLine(user.Used);
                                 streamWriter.WriteLine(user.Wasted);
@@ -101,7 +101,7 @@ namespace MobileApp.Services
                                     user.UserId = Int32.Parse(streamReader.ReadLine());
                                     user.Email = streamReader.ReadLine();
                                     user.User_Name = streamReader.ReadLine();
-                                    //user.Password = streamReader.ReadLine();
+                                    user.Password = streamReader.ReadLine();
                                     user.Bought = Int32.Parse(streamReader.ReadLine());
                                     user.Used = Int32.Parse(streamReader.ReadLine());
                                     user.Wasted = Int32.Parse(streamReader.ReadLine());
