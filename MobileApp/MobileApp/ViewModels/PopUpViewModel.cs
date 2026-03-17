@@ -3,8 +3,6 @@ using Xamarin.Forms;
 using MobileApp.Models;
 using MobileApp.Services;
 using MobileApp.Views;
-using System.ComponentModel;
-using System.Reflection;
 
 namespace MobileApp.ViewModels
 {
@@ -23,7 +21,6 @@ namespace MobileApp.ViewModels
         private string password;
 
         private User loggedInUser;
-        //private int loggedInUserID;
         public PopUpViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
@@ -37,9 +34,22 @@ namespace MobileApp.ViewModels
         public async void OnLoginClicked(object obj)
         {
             loggedInUser = await restService.GetUserAsync(Email,Password);
+            if(loggedInUser.Last_Update != null)
+            {
+                string userTimeString =(loggedInUser.Last_Update).ToString();
+                DateTime userTime = DateTime.Parse(userTimeString);
+                DateTime currentTime = DateTime.Now;
+                if(userTime.Year < currentTime.Year || userTime.Month < currentTime.Month)
+                {
+                    loggedInUser.Last_Update = null;
+                    loggedInUser.Bought = 0;
+                    loggedInUser.Used = 0;
+                    loggedInUser.Wasted = 0;
+                    await restService.UpdateUserAsync(loggedInUser.Email, loggedInUser.Password, loggedInUser);
+                }
+
+            }
             securityService.Encrypt(loggedInUser);
-            /*loggedInUserID = loggedInUser.UserId;
-            userService.SaveUserId(loggedInUserID);*/
             await Shell.Current.GoToAsync($"//{nameof(Profile)}");
         }
         public async void OnRegisterClicked()
@@ -53,7 +63,8 @@ namespace MobileApp.ViewModels
                 Bought = 0,
                 Used = 0,
                 Wasted = 0,
-                UserId = users.Count + 1
+                UserId = users.Count + 1,
+                Last_Update = null
             };
             await restService.AddUserAsync(user);
             loggedInUser = await restService.GetUserAsync(Email, Password);

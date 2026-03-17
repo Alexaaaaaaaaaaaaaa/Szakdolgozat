@@ -14,10 +14,12 @@ namespace MobileApp
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
+            Routing.RegisterRoute(nameof(DeletePage), typeof(DeletePage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(UpdateItemPage), typeof(UpdateItemPage));
             Routing.RegisterRoute(nameof(LoginPopUpPage), typeof(LoginPopUpPage));
             Routing.RegisterRoute(nameof(RegisterPopUpPage), typeof(RegisterPopUpPage));
+            Routing.RegisterRoute(nameof(Profile), typeof(Profile));
             Routing.RegisterRoute(nameof(NotLoggedInProfile), typeof(NotLoggedInProfile));
             Routing.RegisterRoute(nameof(ChangePassword), typeof(ChangePassword));
         }
@@ -34,7 +36,10 @@ namespace MobileApp
             string dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
             using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
                 if (fileStream.Length == 0)
+                {
+                    fileStream.Close();
                     await Shell.Current.GoToAsync("//LoginPage");
+                }
                 else
                 {
                     fileStream.Close();

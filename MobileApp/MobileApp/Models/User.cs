@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 
 namespace MobileApp.Models
 {
@@ -13,5 +11,6 @@ namespace MobileApp.Models
         public int Bought { get; set; }
         public int Used { get; set; }
         public int Wasted { get; set; }
+        public DateTime? Last_Update { get; set; }
     }
 }

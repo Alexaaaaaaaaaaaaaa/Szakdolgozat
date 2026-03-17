@@ -23,13 +23,13 @@
             </Grid>
             <Grid>
                 <Label Text="Egyedi lejárati idő" FontSize="Medium" />
-                <CheckBox x:Name="chkBxYes" Margin="0,0,0,0" HorizontalOptions="End"/>
+                <CheckBox x:Name="chkBxYes" Margin="0,0,0,0" HorizontalOptions="End" IsChecked="{Binding UniqueDateTime}"/>
             </Grid>
-            <Grid IsVisible="false"> <!-- a checkbox kipipálásánál true lesz, a datepicker pedig nem látható/disabled vagy kap fix értéket és disabled lesz-->
-                <Picker ItemsSource="{Binding PickerItems}"/>
+            <Grid IsVisible="{Binding UniqueDateTime}"> <!-- a checkbox kipipálásánál true lesz, a datepicker pedig nem látható/disabled vagy kap fix értéket és disabled lesz-->
+                <Picker ItemsSource="{Binding PickerItems}" SelectedItem="{Binding PickedItem}"/>
             </Grid>
             <Label Text="Lejárati idő" FontSize="Medium" />
-            <DatePicker x:Name="dtPckrExpiration" Date="{Binding Expiration, Mode=TwoWay}" />
+            <DatePicker x:Name="dtPckrExpiration" Date="{Binding Expiration, Mode=TwoWay}" IsEnabled="{Binding DatePickerIsEnabled}"/>
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

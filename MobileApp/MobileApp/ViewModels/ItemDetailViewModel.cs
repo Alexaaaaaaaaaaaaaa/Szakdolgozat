@@ -8,7 +8,7 @@ namespace MobileApp.ViewModels
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class ItemDetailViewModel : BaseViewModel
     {
-        IRestService restService = new RestService();
+        RestService restService = new RestService();
         private int itemId;
         private string text;
         private string description;

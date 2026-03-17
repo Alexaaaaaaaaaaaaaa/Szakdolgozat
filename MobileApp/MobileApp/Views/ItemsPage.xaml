@@ -8,7 +8,7 @@
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Új" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Új" Command="{Binding AddItemCommand}"/> <!-- lehetne + jel Új helyett -->
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
@@ -24,7 +24,7 @@
                         <Grid>
                             <Label LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}"
-                                FontSize="16">
+                                FontSize="16" FontAttributes="Bold">
                                 <Label.Text>
                                     <MultiBinding StringFormat="{}{0} - {1} {2}">
                                         <Binding Path="Food"/>

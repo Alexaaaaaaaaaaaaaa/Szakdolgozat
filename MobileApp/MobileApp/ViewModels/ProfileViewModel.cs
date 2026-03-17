@@ -142,24 +142,73 @@ namespace MobileApp.ViewModels
         public string GetUserName()
         {
             User user = new User();
-            user = securityService.Decrypt();
+            string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    dataDirectoryPath = Path.Combine(appDirectory, "Data");
+            if (!Directory.Exists(dataDirectoryPath))
+                Directory.CreateDirectory(dataDirectoryPath);
+            if (!File.Exists(Path.Combine(dataDirectoryPath, "UserData.txt")))
+                File.Create(Path.Combine(dataDirectoryPath, "UserData.txt")).Close();
+            string dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
+            using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
+            {
+                if (fileStream.Length != 0)
+                {
+                    fileStream.Close();
+                    user = securityService.Decrypt();
+                }
+                else
+                    fileStream.Close();
+            };
             return user.User_Name;
         }
         public string GetUserEmail()
         {
             User user = new User();
-            user = securityService.Decrypt();
+            string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    dataDirectoryPath = Path.Combine(appDirectory, "Data");
+            if (!Directory.Exists(dataDirectoryPath))
+                Directory.CreateDirectory(dataDirectoryPath);
+            if (!File.Exists(Path.Combine(dataDirectoryPath, "UserData.txt")))
+                File.Create(Path.Combine(dataDirectoryPath, "UserData.txt")).Close();
+            string dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
+            using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
+            {
+                if (fileStream.Length != 0)
+                {
+                    fileStream.Close();
+                    user = securityService.Decrypt();
+                }
+                else
+                    fileStream.Close();
+            };
             return user.Email;
         }
         public string GetUserEmailHidden()
         {
             string stars = "";
             User user = new User();
-            user = securityService.Decrypt();
+            string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    dataDirectoryPath = Path.Combine(appDirectory, "Data");
+            if (!Directory.Exists(dataDirectoryPath))
+                Directory.CreateDirectory(dataDirectoryPath);
+            if (!File.Exists(Path.Combine(dataDirectoryPath, "UserData.txt")))
+                File.Create(Path.Combine(dataDirectoryPath, "UserData.txt")).Close();
+            string dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
+            using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
+            {
+                if (fileStream.Length != 0)
+                {
+                    fileStream.Close();
+                    user = securityService.Decrypt();
+                }
+                else
+                    fileStream.Close();
+            }
+            ;
             string email = user.Email;
-            int emailLength = email.Length;
-            foreach (char character in email)
-                stars += "*";
+            if(email != null)
+                foreach (char character in email)
+                    stars += "*";
             return stars;
         }
         public string EyePicture(bool invisible, bool visible)

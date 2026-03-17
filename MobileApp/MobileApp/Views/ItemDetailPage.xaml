@@ -4,13 +4,13 @@
              x:Class="MobileApp.Views.ItemDetailPage"
              Title="{Binding Title}">
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Élelmiszer neve:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Mennyiség:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
-        <Label Text="Lejárati idő:" FontSize="Medium" />
-        <Label Text="{Binding ExpiryDate}" FontSize="Small"/>
+    <StackLayout Spacing="0" Padding="15">
+        <Label Text="Élelmiszer neve" FontSize="Medium" FontAttributes="Bold"/>
+        <Label Text="{Binding Text}" FontSize="18"/>
+        <Label Text="Mennyiség" FontSize="Medium" Margin="0,10,0,0" FontAttributes="Bold"/>
+        <Label Text="{Binding Description}" FontSize="18"/>
+        <Label Text="Lejárati idő" FontSize="Medium" Margin="0,10,0,0" FontAttributes="Bold"/>
+        <Label Text="{Binding ExpiryDate}" FontSize="18"/>
     </StackLayout>
     
 </ContentPage>

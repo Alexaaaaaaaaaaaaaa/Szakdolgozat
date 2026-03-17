@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,7 +58,8 @@ namespace MobileApp.Services
                     .Replace("QuantityMeasure", "quantityMeasure")
                     .Replace("Date", "date")
                     .Replace("IsOpened", "isOpened")
-                    .Replace("T00:00:00", "");
+                    .Replace("T00:00:00", "")
+                    .Replace("T12:00:00", "");
                 StringContent content = new StringContent(replacedJson, Encoding.UTF8, "application/json");
                 //string itemcontent = content.ReadAsStringAsync().Result; Teszteléshez!!!
                 string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/";
@@ -88,7 +88,8 @@ namespace MobileApp.Services
                     .Replace("QuantityMeasure", "quantityMeasure")
                     .Replace("Date", "date")
                     .Replace("IsOpened", "isOpened")
-                    .Replace("T00:00:00", "");
+                    .Replace("T00:00:00", "")
+                    .Replace("T12:00:00", "");
                 StringContent content = new StringContent(replacedJson, Encoding.UTF8, "application/json");
                 string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/" + id.ToString();
                 HttpClient httpClient3 = new HttpClient();
@@ -161,7 +162,9 @@ namespace MobileApp.Services
             else
             {
                 string json = JsonConvert.SerializeObject(user);
-                var replacedJson = json.Replace("User_Name", "userName");
+                var replacedJson = json.Replace("User_Name", "userName").Replace("Last_Update", "last_Update")
+                    .Replace("T00:00:00", "")
+                    .Replace("T12:00:00", "");
                 StringContent content = new StringContent(replacedJson, Encoding.UTF8, "application/json");
                 string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/user";
                 HttpClient httpClient6 = new HttpClient();
@@ -178,7 +181,9 @@ namespace MobileApp.Services
         public async Task<bool> UpdateUserAsync(string email, string password, User user)
         {
             string json = JsonConvert.SerializeObject(user);
-            var replacedJson = json.Replace("User_Name", "userName");
+            var replacedJson = json.Replace("User_Name", "userName").Replace("Last_Update", "last_Update")
+                .Replace("T00:00:00", "")
+                .Replace("T12:00:00", "");
             StringContent content = new StringContent(replacedJson, Encoding.UTF8, "application/json");
             string url = "https://hyperbaric-unseismic-alleen.ngrok-free.dev/fridgeapp/user/" + email + "/" + password;
             HttpClient httpClient7 = new HttpClient();

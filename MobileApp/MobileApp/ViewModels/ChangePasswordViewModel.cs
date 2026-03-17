@@ -61,6 +61,7 @@ namespace MobileApp.ViewModels
                     newUser.Bought = user.Bought;
                     newUser.Used = user.Used;
                     newUser.Wasted = user.Wasted;
+                    newUser.Last_Update = user.Last_Update;
                     if (await restService.UpdateUserAsync(user.Email, user.Password, newUser) == true)
                     {
                         string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
