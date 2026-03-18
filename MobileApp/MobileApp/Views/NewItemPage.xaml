@@ -31,8 +31,8 @@
             <Label Text="Lejárati idő" FontSize="Medium" />
             <DatePicker x:Name="dtPckrExpiration" Date="{Binding Expiration, Mode=TwoWay}" IsEnabled="{Binding DatePickerIsEnabled}"/>
             <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Mégse" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Mentés" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

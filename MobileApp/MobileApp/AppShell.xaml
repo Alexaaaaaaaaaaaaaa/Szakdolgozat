@@ -85,7 +85,7 @@
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Havi értékelés">
-        <ShellContent Route="MonthlyEvaPage" ContentTemplate="{DataTemplate local:MonthlyEvaPage}"/>
+        <ShellContent Route="MonthlyEvaPage" ContentTemplate="{DataTemplate local:MonthlyEvaPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Profil">
         <ShellContent Route="Profile" ContentTemplate="{DataTemplate local:Profile}"/>

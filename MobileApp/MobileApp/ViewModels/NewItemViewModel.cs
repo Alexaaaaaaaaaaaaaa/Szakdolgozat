@@ -4,6 +4,7 @@ using MobileApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using Xamarin.Forms;
 
 namespace MobileApp.ViewModels
@@ -152,6 +153,11 @@ namespace MobileApp.ViewModels
                     Last_Update = newDate
                 };
                 await restService.UpdateUserAsync(newUser.Email, newUser.Password, newUser);
+                string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    dataDirectoryPath = Path.Combine(appDirectory, "Data"),
+                    dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
+                securityService.ClearUserInfo(dataFilePath);
+                securityService.Encrypt(newUser);
             }
 
             // This will pop the current page off the navigation stack

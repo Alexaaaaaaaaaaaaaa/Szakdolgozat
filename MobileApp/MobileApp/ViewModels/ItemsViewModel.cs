@@ -42,7 +42,10 @@ namespace MobileApp.ViewModels
                     dataDirectoryPath = Path.Combine(appDirectory, "Data"),
                     dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
             if (!File.Exists(dataFilePath))
+            {
                 Application.Current.MainPage.DisplayAlert("Ismeretlen felhasználó", "Előbb jelentkezz be!", "OK");
+                Shell.Current.GoToAsync(nameof(NotLoggedInProfile));
+            }
             using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
             {
                 if (fileStream.Length == 0)
