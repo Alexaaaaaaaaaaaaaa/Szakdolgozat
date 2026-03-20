@@ -72,15 +72,15 @@ namespace MobileApp.ViewModels
                     MainText = "Van még hova fejlődni..";
                     ShellColor = "LightCoral";
                 }
-                if (Bought != 0)
+                if ((Used+Wasted) < Bought)
                 {
-                    UsedWidth = (Double.Parse(Used.ToString()) / (Double.Parse(Bought.ToString()))) * Double.Parse((Application.Current.MainPage.Width).ToString()) - 59;
-                    WastedWidth = (Double.Parse(Wasted.ToString()) / (Double.Parse(Bought.ToString()))) * Double.Parse((Application.Current.MainPage.Width).ToString()) - 59;
+                    UsedWidth = (Double.Parse(Used.ToString()) / (Double.Parse(Bought.ToString()))) * Double.Parse((Application.Current.MainPage.Width - 40).ToString());
+                    WastedWidth = (Double.Parse(Wasted.ToString()) / (Double.Parse(Bought.ToString()))) * Double.Parse((Application.Current.MainPage.Width - 40).ToString());
                 }
                 else
                 {
-                    UsedWidth = (Double.Parse(Used.ToString()) / 1) * Double.Parse((Application.Current.MainPage.Width).ToString()) - 40;
-                    WastedWidth = (Double.Parse(Wasted.ToString()) / 1) * Double.Parse((Application.Current.MainPage.Width).ToString()) - 40;
+                    UsedWidth = (Double.Parse(Used.ToString()) / (Double.Parse((Used+Wasted).ToString()))) * Double.Parse((Application.Current.MainPage.Width - 40).ToString());
+                    WastedWidth = (Double.Parse(Wasted.ToString()) / (Double.Parse((Used + Wasted).ToString()))) * Double.Parse((Application.Current.MainPage.Width - 40).ToString());
                 }
             }
             catch (Exception ex)

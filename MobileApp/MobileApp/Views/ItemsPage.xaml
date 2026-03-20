@@ -8,7 +8,7 @@
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Új" Command="{Binding AddItemCommand}"/> <!-- lehetne + jel Új helyett -->
+        <ToolbarItem IconImageSource="Resources/drawable/add.png" Command="{Binding AddItemCommand}"/> <!-- lehetne + jel Új helyett -->
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
@@ -34,8 +34,7 @@
 
                                 </Label.Text>
                             </Label>
-                            <Image Source="Resources/drawable/icon_about.png" HorizontalOptions="End" HeightRequest="25" WidthRequest="25" BackgroundColor="Red"> 
-                                <!-- ki kell cserélni kukára -->
+                            <Image Source="Resources/drawable/delete.png" HorizontalOptions="End" HeightRequest="25" WidthRequest="25"> 
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         NumberOfTapsRequired="1" 
@@ -43,8 +42,7 @@
                                         CommandParameter="{Binding .}"/> <!-- lehetne hogy változzon a háttere ha rányom -->
                                 </Image.GestureRecognizers>
                             </Image>
-                            <Image Source="Resources/drawable/icon_feed.png" HorizontalOptions="End" HeightRequest="25" WidthRequest="25" BackgroundColor="MediumAquamarine" Margin="0,0,30,0">
-                                <!-- ki kell cserélni edit gombra (maybe toll) -->
+                            <Image Source="Resources/drawable/edit.png" Aspect="Fill" HorizontalOptions="End" HeightRequest="25" WidthRequest="25" Margin="0,0,30,0">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         NumberOfTapsRequired="1" 

@@ -214,9 +214,9 @@ namespace MobileApp.ViewModels
         public string EyePicture(bool invisible, bool visible)
         {
             if (invisible)
-                return "Resources/drawable/icon_feed.png";
+                return "Resources/drawable/closed_eye.png";
             else if (visible)
-                return "Resources/drawable/icon_about.png";
+                return "Resources/drawable/open_eye.png";
             else
                 return " ";
         }
