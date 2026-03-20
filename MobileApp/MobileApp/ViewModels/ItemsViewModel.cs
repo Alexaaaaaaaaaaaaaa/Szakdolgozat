@@ -15,6 +15,7 @@ namespace MobileApp.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
+        private bool isOpened;
 
         RestService restService = new RestService();
         SecurityService securityService = new SecurityService();
@@ -85,6 +86,8 @@ namespace MobileApp.ViewModels
                 int userId = user.UserId;
                 foreach (var item in items)
                 {
+                    if (item.IsOpened == true)
+                        IsOpened = true;
                     if(item.UserId == userId)
                         Items.Add(item);
                 }
@@ -158,6 +161,12 @@ namespace MobileApp.ViewModels
                 return;
 
             await Shell.Current.GoToAsync($"{nameof(UpdateItemPage)}?{nameof(UpdateItemViewModel.ItemId)}={item.Id}");
+        }
+
+        public bool IsOpened
+        {
+            get => isOpened;
+            set => SetProperty(ref isOpened, value);
         }
     }
 }
