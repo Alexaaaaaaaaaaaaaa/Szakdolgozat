@@ -1,6 +1,5 @@
 ﻿using MobileApp.Models;
 using MobileApp.Services;
-using MobileApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

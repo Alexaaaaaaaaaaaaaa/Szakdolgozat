@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Windows.Input;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace MobileApp.ViewModels
 {

@@ -3,7 +3,6 @@ using Xamarin.Forms;
 using MobileApp.Models;
 using MobileApp.Services;
 using MobileApp.Views;
-using System.Linq.Expressions;
 
 namespace MobileApp.ViewModels
 {

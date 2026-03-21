@@ -1,8 +1,6 @@
-﻿using System;
+﻿using MobileApp.Models;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using MobileApp.Models;
 
 namespace MobileApp.Services
 {

@@ -1,8 +1,6 @@
 ﻿using MobileApp.Services;
-using MobileApp.ViewModels;
 using MobileApp.Views;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Xamarin.Forms;
 

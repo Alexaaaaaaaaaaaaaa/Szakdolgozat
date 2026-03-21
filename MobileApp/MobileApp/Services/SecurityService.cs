@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Security.Cryptography;
+﻿using MobileApp.Models;
+using System;
 using System.IO;
-using System.Threading.Tasks;
-using MobileApp.Models;
-using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
 
 namespace MobileApp.Services
 {
