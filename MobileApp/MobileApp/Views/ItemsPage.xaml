@@ -4,9 +4,15 @@
              x:Class="MobileApp.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MobileApp.ViewModels"  
+             xmlns:converter="clr-namespace:MobileApp.Converter"  
              xmlns:model="clr-namespace:MobileApp.Models"  
              x:Name="BrowseItemsPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ColorConverter x:Key="CConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="Resources/drawable/add.png" Command="{Binding AddItemCommand}"/>
         <!-- lehetne + jel Új helyett -->
@@ -24,7 +30,7 @@
                     <StackLayout Padding="10" x:DataType="model:Item">
                         <Grid>
                             <Label LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
-                                FontSize="16" FontAttributes="Bold" BackgroundColor="{Binding FoodBackGround, Source=ItemsViewModel, Mode=TwoWay}">
+                                FontSize="16" FontAttributes="Bold" BackgroundColor="{Binding Date, Converter={StaticResource CConverter}}">
                                 <!-- valamiért nem működik -->
                                 <Label.Text>
                                     <MultiBinding StringFormat="{}{0} - {1} {2}">

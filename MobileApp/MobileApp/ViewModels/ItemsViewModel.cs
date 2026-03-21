@@ -90,7 +90,7 @@ namespace MobileApp.ViewModels
                     if (item.UserId == userId)
                     {
                         Items.Add(item);
-                        var minus = (item.Date - DateTime.Now);
+                        /*var minus = (item.Date - DateTime.Now);
                         if (TimeSpan.FromDays(4) < minus && TimeSpan.FromDays(6) > minus)
                         {
                             FoodBackGround = Color.PeachPuff;
@@ -98,7 +98,7 @@ namespace MobileApp.ViewModels
                         else if (TimeSpan.FromDays(3) >= minus)
                         {
                             FoodBackGround = Color.LightCoral;
-                        }
+                        }*/
                     }
                 }
             }
