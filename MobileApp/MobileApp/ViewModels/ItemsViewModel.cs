@@ -14,7 +14,6 @@ namespace MobileApp.ViewModels
     {
         private Item _selectedItem;
         private bool isOpened;
-        private Color foodBackGround;
 
         RestService restService = new RestService();
         SecurityService securityService = new SecurityService();
@@ -90,15 +89,6 @@ namespace MobileApp.ViewModels
                     if (item.UserId == userId)
                     {
                         Items.Add(item);
-                        /*var minus = (item.Date - DateTime.Now);
-                        if (TimeSpan.FromDays(4) < minus && TimeSpan.FromDays(6) > minus)
-                        {
-                            FoodBackGround = Color.PeachPuff;
-                        }
-                        else if (TimeSpan.FromDays(3) >= minus)
-                        {
-                            FoodBackGround = Color.LightCoral;
-                        }*/
                     }
                 }
             }
@@ -126,11 +116,6 @@ namespace MobileApp.ViewModels
                 OnItemSelected(value);
             }
         }
-        public Color FoodBackGround
-        {
-            get => foodBackGround;
-            set => SetProperty(ref foodBackGround, value);
-        }
 
         private async void OnAddItem(object obj)
         {
@@ -153,21 +138,6 @@ namespace MobileApp.ViewModels
             if (await Application.Current.MainPage.DisplayAlert("Törlés", $"Biztosan törölni szeretnéd a \"{item.Food}\" nevű élelmiszert?", "Törlés", "Mégsem") == true)
             {
                 await Shell.Current.GoToAsync($"{nameof(DeletePage)}?{nameof(DeletePageViewModel.ItemId)}={item.Id}");
-                //await ExecuteLoadItemsCommand(); //enélkül nem frissíti le az oldalt automatikusan
-                /* IsBusy = true;
-                 try
-                 {
-                     Items.Clear();
-                     var items = await restService.GetItemsAsync();
-                 }
-                 catch (Exception ex)
-                 {
-                     Debug.WriteLine(ex);
-                 }
-                 finally
-                 {
-                     IsBusy = false;
-                 }*/
             }
         }
         async void OnUpdateItem(Item item)
