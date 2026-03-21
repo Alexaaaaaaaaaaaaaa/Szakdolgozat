@@ -5,7 +5,7 @@
              Title="Regisztráció">
     <ContentPage.Content>
         <StackLayout>
-            <Image Source="placeholder.png" HeightRequest="150" BackgroundColor="Red" Margin="130,0,130,0"/>
+            <Image Source="{Binding ProfilePicture}" HeightRequest="150" BackgroundColor="Red" Margin="130,0,130,0"/>
             <StackLayout Orientation="Horizontal" Margin="50,0">
                 <Button Text="←" FontSize="20" FontAttributes="Bold" Command="{Binding LeftPictureCommand}" HorizontalOptions="Start"/>
                 <Button Text="→" FontSize="20" FontAttributes="Bold" Command="{Binding RightPictureCommand}" HorizontalOptions="EndAndExpand"/>

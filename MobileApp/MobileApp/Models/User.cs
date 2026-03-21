@@ -12,5 +12,6 @@ namespace MobileApp.Models
         public int Used { get; set; }
         public int Wasted { get; set; }
         public DateTime? Last_Update { get; set; }
+        public int Profile_Picture {  get; set; }
     }
 }

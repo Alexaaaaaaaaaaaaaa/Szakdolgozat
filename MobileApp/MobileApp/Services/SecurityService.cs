@@ -47,6 +47,7 @@ namespace MobileApp.Services
                                 streamWriter.WriteLine(user.Bought);
                                 streamWriter.WriteLine(user.Used);
                                 streamWriter.WriteLine(user.Wasted);
+                                streamWriter.WriteLine(user.Profile_Picture);
                             }
                         }
                     }
@@ -105,6 +106,7 @@ namespace MobileApp.Services
                                     user.Bought = Int32.Parse(streamReader.ReadLine());
                                     user.Used = Int32.Parse(streamReader.ReadLine());
                                     user.Wasted = Int32.Parse(streamReader.ReadLine());
+                                    user.Profile_Picture = Int32.Parse(streamReader.ReadLine());
                                 }
                                 return user;
                             }

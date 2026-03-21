@@ -8,7 +8,8 @@
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="Resources/drawable/add.png" Command="{Binding AddItemCommand}"/> <!-- lehetne + jel Új helyett -->
+        <ToolbarItem IconImageSource="Resources/drawable/add.png" Command="{Binding AddItemCommand}"/>
+        <!-- lehetne + jel Új helyett -->
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
@@ -22,16 +23,15 @@
                 <DataTemplate>
                     <StackLayout Padding="10" x:DataType="model:Item">
                         <Grid>
-                            <Label LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}"
-                                FontSize="16" FontAttributes="Bold">
+                            <Label LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"
+                                FontSize="16" FontAttributes="Bold" BackgroundColor="{Binding FoodBackGround, Source=ItemsViewModel, Mode=TwoWay}">
+                                <!-- valamiért nem működik -->
                                 <Label.Text>
                                     <MultiBinding StringFormat="{}{0} - {1} {2}">
                                         <Binding Path="Food"/>
                                         <Binding Path="Quantity"/>
                                         <Binding Path="QuantityMeasure"/>
                                     </MultiBinding>
-
                                 </Label.Text>
                             </Label>
                             <Image Source="Resources/drawable/opened.png" HorizontalOptions="End" HeightRequest="25" WidthRequest="25" Margin="0,0,60,0" IsVisible="{Binding IsOpened}"/>

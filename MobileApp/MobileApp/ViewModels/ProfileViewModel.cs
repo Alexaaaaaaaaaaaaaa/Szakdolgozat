@@ -23,6 +23,7 @@ namespace MobileApp.ViewModels
         private string isEyesClosed;
         private bool visible;
         private bool invisible;
+        private string profilePicture;
         public ProfileViewModel()
         {
             Title = "Profil";
@@ -33,6 +34,7 @@ namespace MobileApp.ViewModels
             UserName = GetUserName();
             Email = GetUserEmail();
             Star = GetUserEmailHidden();
+            ProfilePicture = GetProfilePicture();
             if (Invisible == false && Visible == false)
             {
                 Invisible = true;
@@ -40,6 +42,7 @@ namespace MobileApp.ViewModels
             }
             IsEyesClosed = EyePicture(Invisible, Visible);
         }
+
         public async Task OnIsLoggedIn()
         {
             IsBusy = true;
@@ -66,6 +69,10 @@ namespace MobileApp.ViewModels
             {
                 IsBusy = false;
             }
+        }
+        public void OnAppearing()
+        {
+            IsBusy = true;
         }
         public string UserName
         {
@@ -112,6 +119,11 @@ namespace MobileApp.ViewModels
                 IsEyesClosed = EyePicture(Invisible, Visible);
             }
         }
+        public string ProfilePicture
+        {
+            get => profilePicture;
+            set => SetProperty(ref profilePicture, value);
+        }
         public async void OnChangePassword()
         {
             await Shell.Current.GoToAsync($"{nameof(ChangePassword)}");
@@ -136,7 +148,7 @@ namespace MobileApp.ViewModels
                         Console.WriteLine("User data cleared successfully.");
                     else
                         Console.WriteLine("Something went wrong!");
-                    await Shell.Current.GoToAsync($"//{nameof(Profile)}");
+                    await Shell.Current.GoToAsync($"//{nameof(NotLoggedInProfile)}");
                 }
         }
         public string GetUserName()
@@ -219,6 +231,38 @@ namespace MobileApp.ViewModels
                 return "Resources/drawable/open_eye.png";
             else
                 return " ";
+        }
+        public string GetProfilePicture()
+        {
+            User user = new User();
+            string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    dataDirectoryPath = Path.Combine(appDirectory, "Data");
+            if (!Directory.Exists(dataDirectoryPath))
+                Directory.CreateDirectory(dataDirectoryPath);
+            if (!File.Exists(Path.Combine(dataDirectoryPath, "UserData.txt")))
+                File.Create(Path.Combine(dataDirectoryPath, "UserData.txt")).Close();
+            string dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
+            using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
+            {
+                if (fileStream.Length != 0)
+                {
+                    fileStream.Close();
+                    user = securityService.Decrypt();
+                }
+                else
+                {
+                    fileStream.Close();
+                    return "";
+                }
+            };
+            if (user.Profile_Picture == 1)
+                return "Resources/drawable/apple.png";
+            else if (user.Profile_Picture == 2)
+                return "Resources/drawable/coffee.png";
+            else if (user.Profile_Picture == 3)
+                return "Resources/drawable/carrot.png";
+            else
+                return "";
         }
     }
 }

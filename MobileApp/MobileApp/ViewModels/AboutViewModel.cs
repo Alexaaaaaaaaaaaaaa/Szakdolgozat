@@ -8,13 +8,15 @@ namespace MobileApp.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
+        public Command OpenFridgeCommand { get; }
         public AboutViewModel()
         {
             Title = "Főoldal";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
+            OpenFridgeCommand = new Command(async () => await Shell.Current.GoToAsync("//ItemsPage"));
+            //OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
             
         }
 
-        public ICommand OpenWebCommand { get; }
+        //public ICommand OpenWebCommand { get; }
     }
 }

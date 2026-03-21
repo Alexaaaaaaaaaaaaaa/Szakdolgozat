@@ -19,6 +19,7 @@ namespace MobileApp.ViewModels
         private double usedWidth;
         private double wastedWidth;
         private string shellColor;
+        private string picture;
 
         SecurityService securityService = new SecurityService();
 
@@ -61,16 +62,19 @@ namespace MobileApp.ViewModels
                 {
                     MainText = "SZÉP MUNKA!";
                     ShellColor = "MediumAquamarine";
+                    Picture = "Resources/drawable/gizmo.png";
                 }
                 else if (Wasted < 3)
                 {
                     MainText = "Nem rossz!";
                     ShellColor = "MediumAquamarine";
+                    Picture = "Resources/drawable/ice_cream.png";
                 }
                 else
                 {
                     MainText = "Van még hova fejlődni..";
                     ShellColor = "LightCoral";
+                    Picture = "Resources/drawable/rotten_apple.png";
                 }
                 if ((Used+Wasted) < Bought)
                 {
@@ -129,6 +133,11 @@ namespace MobileApp.ViewModels
         {
             get => shellColor;
             set => SetProperty(ref shellColor, value);
+        }
+        public string Picture
+        {
+            get => picture;
+            set => SetProperty(ref picture, value);
         }
     }
 }

@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout>
             <RefreshView x:DataType="local:ProfileViewModel" Command="{Binding IsLoggedIn}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-                <Image Source="placeholder.png" BackgroundColor="Red" Margin="45,45,45,10"/>
+                <Image Source="{Binding ProfilePicture}" Margin="45,45,45,10"/>
             </RefreshView>
             <Label Text="{Binding UserName}" HorizontalOptions="Center" FontAttributes="Bold" FontSize="Medium"/>
             <Label Text=" "/>

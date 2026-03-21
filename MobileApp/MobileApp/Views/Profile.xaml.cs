@@ -12,13 +12,18 @@ namespace MobileApp.Views
         public Profile ()
 		{
             InitializeComponent ();
-			BindingContext = new ProfileViewModel();
+			BindingContext = viewModel = new ProfileViewModel();
 			Refresh();
         }
         ProfileViewModel viewModel = new ProfileViewModel();
 		public async void Refresh()
         {
             await viewModel.OnIsLoggedIn();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.OnAppearing();
         }
     }
 }

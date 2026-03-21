@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using MobileApp.Models;
 using MobileApp.Services;
 using MobileApp.Views;
+using System.Linq.Expressions;
 
 namespace MobileApp.ViewModels
 {
@@ -19,6 +20,7 @@ namespace MobileApp.ViewModels
         private string email;
         private string userName;
         private string password;
+        private string profilePicture;
 
         private User loggedInUser;
         public PopUpViewModel()
@@ -27,10 +29,12 @@ namespace MobileApp.ViewModels
             RegisterCommand = new Command(OnRegisterClicked);
             LeftPictureCommand = new Command(LeftPictureSwipe);
             RightPictureCommand = new Command(RightPictureSwipe);
+            ProfilePicture = "Resources/drawable/apple.png";
         }
         public string Email { get => email; set => SetProperty(ref email, value); }
         public string UserName { get => userName; set => SetProperty(ref userName, value); }
         public string Password { get => password; set => SetProperty(ref password, value); }
+        public string ProfilePicture { get => profilePicture; set => SetProperty(ref profilePicture, value); }
         public async void OnLoginClicked(object obj)
         {
             loggedInUser = await restService.GetUserAsync(Email,Password);
@@ -55,6 +59,19 @@ namespace MobileApp.ViewModels
         public async void OnRegisterClicked()
         {
             var users = await restService.GetUsersAsync();
+            int profpic = 0;
+            switch (ProfilePicture)
+            {
+                case "Resources/drawable/apple.png":
+                    profpic = 1;
+                    break;
+                case "Resources/drawable/coffee.png":
+                    profpic = 2;
+                    break;
+                case "Resources/drawable/carrot.png":
+                    profpic = 3;
+                    break;
+            }
             User user = new User()
             {
                 Email = Email,
@@ -64,20 +81,43 @@ namespace MobileApp.ViewModels
                 Used = 0,
                 Wasted = 0,
                 UserId = users.Count + 1,
-                Last_Update = null
+                Last_Update = null,
+                Profile_Picture = profpic
             };
             await restService.AddUserAsync(user);
             loggedInUser = await restService.GetUserAsync(Email, Password);
             securityService.Encrypt(loggedInUser);
             await Shell.Current.GoToAsync($"//{nameof(Profile)}");
         }
-        public async void LeftPictureSwipe(object obj)
+        public async void LeftPictureSwipe()
         {
-            throw new NotImplementedException();
+            switch (ProfilePicture)
+            {
+                case "Resources/drawable/apple.png":
+                    ProfilePicture = "Resources/drawable/carrot.png";
+                    break;
+                case "Resources/drawable/carrot.png":
+                    ProfilePicture = "Resources/drawable/coffee.png";
+                    break;
+                case "Resources/drawable/coffee.png":
+                    ProfilePicture = "Resources/drawable/apple.png";
+                    break;
+            }
         }
-        public async void RightPictureSwipe(object obj)
+        public async void RightPictureSwipe()
         {
-            throw new NotImplementedException();
+            switch (ProfilePicture)
+            {
+                case "Resources/drawable/apple.png":
+                    ProfilePicture = "Resources/drawable/coffee.png";
+                    break;
+                case "Resources/drawable/coffee.png":
+                    ProfilePicture = "Resources/drawable/carrot.png";
+                    break;
+                case "Resources/drawable/carrot.png":
+                    ProfilePicture = "Resources/drawable/apple.png";
+                    break;
+            }
         }
     }
 }

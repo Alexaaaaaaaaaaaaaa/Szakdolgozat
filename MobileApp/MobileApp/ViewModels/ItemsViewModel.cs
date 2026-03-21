@@ -3,10 +3,8 @@ using MobileApp.Services;
 using MobileApp.Views;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -16,6 +14,7 @@ namespace MobileApp.ViewModels
     {
         private Item _selectedItem;
         private bool isOpened;
+        private Color foodBackGround;
 
         RestService restService = new RestService();
         SecurityService securityService = new SecurityService();
@@ -88,8 +87,19 @@ namespace MobileApp.ViewModels
                 {
                     if (item.IsOpened == true)
                         IsOpened = true;
-                    if(item.UserId == userId)
+                    if (item.UserId == userId)
+                    {
                         Items.Add(item);
+                        var minus = (item.Date - DateTime.Now);
+                        if (TimeSpan.FromDays(4) < minus && TimeSpan.FromDays(6) > minus)
+                        {
+                            FoodBackGround = Color.PeachPuff;
+                        }
+                        else if (TimeSpan.FromDays(3) >= minus)
+                        {
+                            FoodBackGround = Color.LightCoral;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -115,6 +125,11 @@ namespace MobileApp.ViewModels
                 SetProperty(ref _selectedItem, value);
                 OnItemSelected(value);
             }
+        }
+        public Color FoodBackGround
+        {
+            get => foodBackGround;
+            set => SetProperty(ref foodBackGround, value);
         }
 
         private async void OnAddItem(object obj)

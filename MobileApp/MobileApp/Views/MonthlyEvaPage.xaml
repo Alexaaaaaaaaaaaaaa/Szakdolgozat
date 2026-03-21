@@ -7,7 +7,7 @@
              Shell.BackgroundColor="{Binding ShellColor}">
     <RefreshView x:DataType="local:MonthlyEvaViewModel" Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <StackLayout>
-            <Image BackgroundColor="PeachPuff" HeightRequest="300" Margin="20"/>
+            <Image Source="{Binding Picture}" HeightRequest="300" Margin="20"/>
             <Label Text="{Binding MainText}" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
             <Label/>
             <Label/>
