@@ -3,14 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileApp.Views.LoginPopUpPage"
              Title="Bejelentkezés">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">seashell</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout Padding="10">
-            <Image Source="placeholder.png" WidthRequest="100" HeightRequest="250" IsVisible="true" BackgroundColor="Red"/>
-            <StackLayout>
-                <Entry Placeholder="E-mail cím" Text="{Binding Email}" HorizontalTextAlignment="Center"/>
-                <Entry Placeholder="Jelszó" Text="{Binding Password}" IsPassword="True" HorizontalTextAlignment="Center"/>
-                <Button Text="Bejelentkezés" Command="{Binding LoginCommand}"/>
+            <StackLayout BackgroundColor="{StaticResource Accent}" HorizontalOptions="Fill" HeightRequest="250">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <StackLayout BackgroundColor="PeachPuff" Margin="20">
+                        <StackLayout BackgroundColor="LightSalmon" Margin="20">
+                            <Label Text="LEFTOVERS" FontSize="50" FontAttributes="Bold" TextColor="White" Margin="20,50,20,50"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
+            <Entry Placeholder="E-mail cím" Text="{Binding Email}" HorizontalTextAlignment="Center"/>
+            <Entry Placeholder="Jelszó" Text="{Binding Password}" IsPassword="True" HorizontalTextAlignment="Center"/>
+            <Button Text="Bejelentkezés" Command="{Binding LoginCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

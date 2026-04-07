@@ -9,7 +9,7 @@ namespace MobileApp.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var date = (DateTime)value;
-            if (TimeSpan.FromDays(4) < (date - DateTime.Now) && TimeSpan.FromDays(6) > (date - DateTime.Now))
+            if (TimeSpan.FromDays(3) < (date - DateTime.Now) && TimeSpan.FromDays(6) > (date - DateTime.Now))
                 return Color.PeachPuff;
             else if (TimeSpan.FromDays(3) >= (date - DateTime.Now))
                 return Color.LightCoral;
