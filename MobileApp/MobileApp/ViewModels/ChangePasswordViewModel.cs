@@ -44,7 +44,7 @@ namespace MobileApp.ViewModels
         }
         public async void OnChangePassword()
         {
-            if (NewPassword1 == NewPassword2)
+            if (NewPassword1 == NewPassword2 && CurrentPassword != NewPassword1 && CurrentPassword != null && NewPassword1 != null && CurrentPassword != "" && NewPassword1 != "")
             {
                 User user = new User();
                 User newUser = new User();
@@ -87,7 +87,14 @@ namespace MobileApp.ViewModels
             }
             else
             {
-                ErrorMessage = "A két megadott új jelszó nem egyezik meg!";
+                if (NewPassword1 != NewPassword2)
+                    ErrorMessage = "A két megadott új jelszó nem egyezik meg!";
+                else if (CurrentPassword == NewPassword1)
+                    ErrorMessage = "Az új jelszó nem egyezhett meg a jelenlegi jelszóval!";
+                else if (CurrentPassword == null || CurrentPassword == "")
+                    ErrorMessage = "A jelenlegi jelszó mező nem lehet üres!";
+                else if (NewPassword1 == null || NewPassword1 == "")
+                    ErrorMessage = "Az új jelszó mező nem lehet üres!";
             }
         }
     }
