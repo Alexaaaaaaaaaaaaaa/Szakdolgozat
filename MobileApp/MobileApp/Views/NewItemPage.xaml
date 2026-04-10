@@ -30,6 +30,7 @@
             </Grid>
             <Label Text="Lejárati idő" FontSize="Medium" />
             <DatePicker x:Name="dtPckrExpiration" Date="{Binding Expiration, Mode=TwoWay}" IsEnabled="{Binding DatePickerIsEnabled}"/>
+            <Label Text="Az élelmiszer mennyiségénél kérlek használj egész számokat, különben a mentés sikertelen lesz! (Pl.: 0.5 kg helyett 50 dkg)" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
             <StackLayout Orientation="Horizontal">
                 <Button Text="Mégse" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Mentés" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

@@ -46,8 +46,9 @@ namespace MobileApp.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text);
-               // && !String.IsNullOrWhiteSpace(measure);
+            return !String.IsNullOrWhiteSpace(text)
+                && !(DescriptionQuantity == 0 || DescriptionQuantity < 0);
+            // && !String.IsNullOrWhiteSpace(measure);
         }
 
         public string Text
@@ -99,68 +100,68 @@ namespace MobileApp.ViewModels
 
         private async void OnSave()
         {
-            var items = await restService.GetItemsAsync();
+                var items = await restService.GetItemsAsync();
 
-            Item newItem;
-            if (DatePickerIsEnabled)
-            {
-                newItem = new Item()
+                Item newItem;
+                if (DatePickerIsEnabled)
                 {
-                    Date = Expiration,
-                    Quantity = DescriptionQuantity,
-                    QuantityMeasure = DescriptionMeasure,
-                    Food = Text,
-                    IsOpened = IsOpen,
-                    Id = items.Count + 1,
-                    Wasted = false,
-                    UserId = securityService.Decrypt().UserId
-                };
-            }
-            else
-            {
-                string[] pickedItemPieces = pickedItem.Split(' ');
-                DateTime currentTime = DateTime.Now;
-                DateTime newDate = DateTime.Parse(currentTime.ToShortDateString());
-                int daysToAdd = Int32.Parse(pickedItemPieces[1]);
-                newItem = new Item()
+                    newItem = new Item()
+                    {
+                        Date = Expiration,
+                        Quantity = DescriptionQuantity,
+                        QuantityMeasure = DescriptionMeasure,
+                        Food = Text,
+                        IsOpened = IsOpen,
+                        Id = items.Count + 1,
+                        Wasted = false,
+                        UserId = securityService.Decrypt().UserId
+                    };
+                }
+                else
                 {
-                    Date = newDate.AddDays(daysToAdd),
-                    Quantity = DescriptionQuantity,
-                    QuantityMeasure = DescriptionMeasure,
-                    Food = Text,
-                    IsOpened = IsOpen,
-                    Id = items.Count + 1,
-                    Wasted = false,
-                    UserId = securityService.Decrypt().UserId
-                };
-            }
+                    string[] pickedItemPieces = pickedItem.Split(' ');
+                    DateTime currentTime = DateTime.Now;
+                    DateTime newDate = DateTime.Parse(currentTime.ToShortDateString());
+                    int daysToAdd = Int32.Parse(pickedItemPieces[1]);
+                    newItem = new Item()
+                    {
+                        Date = newDate.AddDays(daysToAdd),
+                        Quantity = DescriptionQuantity,
+                        QuantityMeasure = DescriptionMeasure,
+                        Food = Text,
+                        IsOpened = IsOpen,
+                        Id = items.Count + 1,
+                        Wasted = false,
+                        UserId = securityService.Decrypt().UserId
+                    };
+                }
 
-            if (await restService.AddItemAsync(newItem) == true)
-            {
-                DateTime currentTime = DateTime.Now;
-                DateTime newDate = DateTime.Parse(currentTime.ToShortDateString());
-                User oldUser = securityService.Decrypt();
-                User newUser = new User()
+                if (await restService.AddItemAsync(newItem) == true)
                 {
-                    UserId = oldUser.UserId,
-                    Email = oldUser.Email,
-                    User_Name = oldUser.User_Name,
-                    Password = oldUser.Password,
-                    Bought = oldUser.Bought + 1,
-                    Used = oldUser.Used,
-                    Wasted = oldUser.Wasted,
-                    Last_Update = newDate
-                };
-                await restService.UpdateUserAsync(newUser.Email, newUser.Password, newUser);
-                string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    dataDirectoryPath = Path.Combine(appDirectory, "Data"),
-                    dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
-                securityService.ClearUserInfo(dataFilePath);
-                securityService.Encrypt(newUser);
-            }
+                    DateTime currentTime = DateTime.Now;
+                    DateTime newDate = DateTime.Parse(currentTime.ToShortDateString());
+                    User oldUser = securityService.Decrypt();
+                    User newUser = new User()
+                    {
+                        UserId = oldUser.UserId,
+                        Email = oldUser.Email,
+                        User_Name = oldUser.User_Name,
+                        Password = oldUser.Password,
+                        Bought = oldUser.Bought + 1,
+                        Used = oldUser.Used,
+                        Wasted = oldUser.Wasted,
+                        Last_Update = newDate
+                    };
+                    await restService.UpdateUserAsync(newUser.Email, newUser.Password, newUser);
+                    string appDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                        dataDirectoryPath = Path.Combine(appDirectory, "Data"),
+                        dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
+                    securityService.ClearUserInfo(dataFilePath);
+                    securityService.Encrypt(newUser);
+                }
 
-            // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
+                // This will pop the current page off the navigation stack
+                await Shell.Current.GoToAsync("..");
         }
     }
 }
