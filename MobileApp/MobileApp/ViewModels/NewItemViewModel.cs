@@ -47,8 +47,8 @@ namespace MobileApp.ViewModels
         private bool ValidateSave()
         {
             return !String.IsNullOrWhiteSpace(text)
-                && !(DescriptionQuantity == 0 || DescriptionQuantity < 0);
-            // && !String.IsNullOrWhiteSpace(measure);
+                && !(DescriptionQuantity == 0 || DescriptionQuantity < 0)
+                && !String.IsNullOrWhiteSpace(measure);
         }
 
         public string Text

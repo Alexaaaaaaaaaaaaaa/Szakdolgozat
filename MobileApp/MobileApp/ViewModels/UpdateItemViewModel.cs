@@ -16,6 +16,11 @@ namespace MobileApp.ViewModels
         private bool open;
         private DateTime expiry;
         IRestService restService = new RestService();
+        private string oldFoodName;
+        private int oldQuantity;
+        private string oldMeasure;
+        private bool oldOpen;
+        private DateTime oldExpiry;
         public int Id { get; set; }
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
@@ -63,6 +68,12 @@ namespace MobileApp.ViewModels
                 DescriptionMeasure = item.QuantityMeasure;
                 IsOpen = item.IsOpened;
                 Expiration = item.Date;
+
+                oldFoodName = item.Food;
+                oldQuantity = item.Quantity;
+                oldMeasure = item.QuantityMeasure;
+                oldOpen = item.IsOpened;
+                oldExpiry = item.Date;
             }
             catch (Exception)
             {
@@ -88,22 +99,30 @@ namespace MobileApp.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(foodName);
+            return !String.IsNullOrWhiteSpace(foodName)
+                && !(quantity == 0 || quantity < 0)
+                && !String.IsNullOrWhiteSpace(measure);
         }
 
         private async void OnSave()
         {
-            var updatedItem = new Item()
+            if (foodName == oldFoodName && quantity == oldQuantity && measure == oldMeasure && open == oldOpen && expiry == oldExpiry)
+                await Application.Current.MainPage.DisplayAlert("", "Nem változtattál semmit az élelmiszeren!", "OK");
+            else
             {
-                Id = Id,
-                Food = Text,
-                Quantity = DescriptionQuantity,
-                QuantityMeasure = DescriptionMeasure,
-                IsOpened = IsOpen,
-                Date = Expiration
-            };
-            await restService.UpdateItemAsync(updatedItem.Id, updatedItem);
-            await Shell.Current.GoToAsync("..");
+                var updatedItem = new Item()
+                {
+                    Id = Id,
+                    Food = Text,
+                    Quantity = DescriptionQuantity,
+                    QuantityMeasure = DescriptionMeasure,
+                    IsOpened = IsOpen,
+                    Date = Expiration
+                };
+                await restService.UpdateItemAsync(updatedItem.Id, updatedItem);
+                await Shell.Current.GoToAsync("..");
+            }
+                
         }
     }
 }
