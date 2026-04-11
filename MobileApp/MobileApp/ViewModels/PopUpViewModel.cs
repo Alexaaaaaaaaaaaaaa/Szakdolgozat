@@ -36,57 +36,67 @@ namespace MobileApp.ViewModels
         public string ProfilePicture { get => profilePicture; set => SetProperty(ref profilePicture, value); }
         public async void OnLoginClicked(object obj)
         {
-            loggedInUser = await restService.GetUserAsync(Email,Password);
-            if(loggedInUser.Last_Update != null)
+            if (Email != "" && Password != "" && Email != null && Password != null)
             {
-                string userTimeString =(loggedInUser.Last_Update).ToString();
-                DateTime userTime = DateTime.Parse(userTimeString);
-                DateTime currentTime = DateTime.Now;
-                if(userTime.Year < currentTime.Year || userTime.Month < currentTime.Month)
+                loggedInUser = await restService.GetUserAsync(Email, Password);
+                if (loggedInUser.Last_Update != null)
                 {
-                    loggedInUser.Last_Update = null;
-                    loggedInUser.Bought = 0;
-                    loggedInUser.Used = 0;
-                    loggedInUser.Wasted = 0;
-                    await restService.UpdateUserAsync(loggedInUser.Email, loggedInUser.Password, loggedInUser);
-                }
+                    string userTimeString = (loggedInUser.Last_Update).ToString();
+                    DateTime userTime = DateTime.Parse(userTimeString);
+                    DateTime currentTime = DateTime.Now;
+                    if (userTime.Year < currentTime.Year || userTime.Month < currentTime.Month)
+                    {
+                        loggedInUser.Last_Update = null;
+                        loggedInUser.Bought = 0;
+                        loggedInUser.Used = 0;
+                        loggedInUser.Wasted = 0;
+                        await restService.UpdateUserAsync(loggedInUser.Email, loggedInUser.Password, loggedInUser);
+                    }
 
+                }
+                securityService.Encrypt(loggedInUser);
+                await Shell.Current.GoToAsync($"//{nameof(Profile)}");
             }
-            securityService.Encrypt(loggedInUser);
-            await Shell.Current.GoToAsync($"//{nameof(Profile)}");
+            else
+                await Application.Current.MainPage.DisplayAlert("Üres mező", "Kérlek töltsd ki az összes mezőt!", "OK");
         }
         public async void OnRegisterClicked()
         {
-            var users = await restService.GetUsersAsync();
-            int profpic = 0;
-            switch (ProfilePicture)
+            if (Email != null && Email != "" && UserName != null && UserName != "" && Password != null && Password != "")
             {
-                case "Resources/drawable/apple.png":
-                    profpic = 1;
-                    break;
-                case "Resources/drawable/coffee.png":
-                    profpic = 2;
-                    break;
-                case "Resources/drawable/carrot.png":
-                    profpic = 3;
-                    break;
+                var users = await restService.GetUsersAsync();
+                int profpic = 0;
+                switch (ProfilePicture)
+                {
+                    case "Resources/drawable/apple.png":
+                        profpic = 1;
+                        break;
+                    case "Resources/drawable/coffee.png":
+                        profpic = 2;
+                        break;
+                    case "Resources/drawable/carrot.png":
+                        profpic = 3;
+                        break;
+                }
+                User user = new User()
+                {
+                    Email = Email,
+                    User_Name = UserName,
+                    Password = Password,
+                    Bought = 0,
+                    Used = 0,
+                    Wasted = 0,
+                    UserId = users.Count + 1,
+                    Last_Update = null,
+                    Profile_Picture = profpic
+                };
+                await restService.AddUserAsync(user);
+                loggedInUser = await restService.GetUserAsync(Email, Password);
+                securityService.Encrypt(loggedInUser);
+                await Shell.Current.GoToAsync($"//{nameof(Profile)}");
             }
-            User user = new User()
-            {
-                Email = Email,
-                User_Name = UserName,
-                Password = Password,
-                Bought = 0,
-                Used = 0,
-                Wasted = 0,
-                UserId = users.Count + 1,
-                Last_Update = null,
-                Profile_Picture = profpic
-            };
-            await restService.AddUserAsync(user);
-            loggedInUser = await restService.GetUserAsync(Email, Password);
-            securityService.Encrypt(loggedInUser);
-            await Shell.Current.GoToAsync($"//{nameof(Profile)}");
+            else
+                await Application.Current.MainPage.DisplayAlert("Üres mező", "Kérlek töltsd ki az összes mezőt!", "OK");
         }
         public async void LeftPictureSwipe()
         {
