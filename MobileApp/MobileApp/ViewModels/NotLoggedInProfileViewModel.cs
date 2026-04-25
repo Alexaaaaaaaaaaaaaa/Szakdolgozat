@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using MobileApp.Views;
+﻿using MobileApp.Views;
 using Xamarin.Forms;
 
 namespace MobileApp.ViewModels
 {
-    public class NotLoggedInProfileViewModel
+    [QueryProperty(nameof(PageName), nameof(PageName))]
+    public class NotLoggedInProfileViewModel : BaseViewModel
     {
         public Command GoToLoginPageCommand { get; }
+        private string pageName;
+        public string PageName
+        {
+            get => pageName;
+            set => SetProperty(ref pageName, value);
+        }
         public NotLoggedInProfileViewModel()
         {
             GoToLoginPageCommand = new Command(OnClicked);
         }
         public async void OnClicked()
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}?{nameof(LoginViewModel.PageName)}={PageName}");
         }
     }
 }

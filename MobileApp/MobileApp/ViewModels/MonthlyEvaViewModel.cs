@@ -19,6 +19,7 @@ namespace MobileApp.ViewModels
         private double wastedWidth;
         private string shellColor;
         private string picture;
+        private string pageName;
 
         SecurityService securityService = new SecurityService();
 
@@ -40,7 +41,7 @@ namespace MobileApp.ViewModels
                 if (!File.Exists(dataFilePath))
                 {
                     await Application.Current.MainPage.DisplayAlert("Ismeretlen felhasználó", "Előbb jelentkezz be!", "OK");
-                    await Shell.Current.GoToAsync(nameof(NotLoggedInProfile));
+                    await Shell.Current.GoToAsync($"{nameof(NotLoggedInProfile)}?{nameof(NotLoggedInProfileViewModel.PageName)}={nameof(MonthlyEvaPage)}");
                 }
                 using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
                 {
@@ -48,7 +49,7 @@ namespace MobileApp.ViewModels
                     {
                         fileStream.Close();
                         await Application.Current.MainPage.DisplayAlert("Ismeretlen felhasználó", "Előbb jelentkezz be!", "OK");
-                        await Shell.Current.GoToAsync(nameof(NotLoggedInProfile));
+                        await Shell.Current.GoToAsync($"{nameof(NotLoggedInProfile)}?{nameof(NotLoggedInProfileViewModel.PageName)}={nameof(MonthlyEvaPage)}");
                     }
                     else
                         fileStream.Close();
@@ -98,6 +99,11 @@ namespace MobileApp.ViewModels
             IsBusy = true;
         }
 
+        public string PageName
+        {
+            get => pageName;
+            set => SetProperty(ref pageName, value);
+        }
         public string MainText
         {
             get => mainText;

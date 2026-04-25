@@ -24,6 +24,7 @@ namespace MobileApp.ViewModels
         private bool visible;
         private bool invisible;
         private string profilePicture;
+        private string pageName;
         public ProfileViewModel()
         {
             Title = "Profil";
@@ -55,7 +56,7 @@ namespace MobileApp.ViewModels
                     if (fileStream.Length == 0)
                     {
                         fileStream.Close();
-                        await Shell.Current.GoToAsync($"{nameof(NotLoggedInProfile)}");
+                        await Shell.Current.GoToAsync($"{nameof(NotLoggedInProfile)}?{nameof(NotLoggedInProfileViewModel.PageName)}={nameof(Profile)}");
                     }
                     else
                         fileStream.Close();
@@ -69,6 +70,11 @@ namespace MobileApp.ViewModels
             {
                 IsBusy = false;
             }
+        }
+        public string PageName
+        {
+            get => pageName;
+            set => SetProperty(ref pageName, value);
         }
         public void OnAppearing()
         {
@@ -139,7 +145,7 @@ namespace MobileApp.ViewModels
             string dataFilePath = Path.Combine(dataDirectoryPath, "UserData.txt");
             using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
                 if (fileStream.Length == 0)
-                    Console.WriteLine("Valami nagyon nem okés tesám!");
+                    Console.WriteLine("Valami nagyon nem okés!");
                 else
                 {
                     fileStream.Close();
@@ -148,7 +154,7 @@ namespace MobileApp.ViewModels
                         Console.WriteLine("User data cleared successfully.");
                     else
                         Console.WriteLine("Something went wrong!");
-                    await Shell.Current.GoToAsync($"//{nameof(NotLoggedInProfile)}");
+                    await Shell.Current.GoToAsync($"{nameof(NotLoggedInProfile)}?{nameof(NotLoggedInProfileViewModel.PageName)}=Logout");
                 }
         }
         public string GetUserName()

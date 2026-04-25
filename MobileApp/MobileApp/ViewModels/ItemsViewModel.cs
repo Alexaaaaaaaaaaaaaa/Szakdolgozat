@@ -43,7 +43,7 @@ namespace MobileApp.ViewModels
             if (!File.Exists(dataFilePath))
             {
                 Application.Current.MainPage.DisplayAlert("Ismeretlen felhasználó", "Előbb jelentkezz be!", "OK");
-                Shell.Current.GoToAsync(nameof(NotLoggedInProfile));
+                Shell.Current.GoToAsync($"{nameof(NotLoggedInProfile)}?{nameof(NotLoggedInProfileViewModel.PageName)}={nameof(ItemsPage)}");
             }
             using (FileStream fileStream = new FileStream(dataFilePath, FileMode.Open))
             {
@@ -51,7 +51,7 @@ namespace MobileApp.ViewModels
                 {
                     fileStream.Close();
                     Application.Current.MainPage.DisplayAlert("Ismeretlen felhasználó", "Előbb jelentkezz be!", "OK");
-                    Shell.Current.GoToAsync(nameof(NotLoggedInProfile));
+                    Shell.Current.GoToAsync($"{nameof(NotLoggedInProfile)}?{nameof(NotLoggedInProfileViewModel.PageName)}={nameof(ItemsPage)}");
                 }
                 else
                     fileStream.Close();

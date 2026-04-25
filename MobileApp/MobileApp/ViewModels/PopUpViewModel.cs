@@ -6,13 +6,14 @@ using MobileApp.Views;
 
 namespace MobileApp.ViewModels
 {
+    [QueryProperty(nameof(PageName), nameof(PageName))]
     public class PopUpViewModel : BaseViewModel
     {
         public Command LoginCommand { get; }
         public Command RegisterCommand { get; }
         public Command LeftPictureCommand { get; }
         public Command RightPictureCommand { get; }
-        
+
         RestService restService = new RestService();
         SecurityService securityService = new SecurityService();
 
@@ -20,6 +21,7 @@ namespace MobileApp.ViewModels
         private string userName;
         private string password;
         private string profilePicture;
+        private string pageName;
 
         private User loggedInUser;
         public PopUpViewModel()
@@ -55,7 +57,12 @@ namespace MobileApp.ViewModels
 
                 }
                 securityService.Encrypt(loggedInUser);
-                await Shell.Current.GoToAsync($"//{nameof(Profile)}");
+                if (pageName == "Profile")
+                    await Shell.Current.GoToAsync($"{nameof(Profile)}");
+                else if (pageName == "Logout" || pageName == "")
+                    await Shell.Current.GoToAsync($"//{nameof(Profile)}");
+                else
+                    await Shell.Current.GoToAsync($"//{PageName}");
             }
             else
                 await Application.Current.MainPage.DisplayAlert("Üres mező", "Kérlek töltsd ki az összes mezőt!", "OK");
@@ -93,7 +100,7 @@ namespace MobileApp.ViewModels
                 await restService.AddUserAsync(user);
                 loggedInUser = await restService.GetUserAsync(Email, Password);
                 securityService.Encrypt(loggedInUser);
-                await Shell.Current.GoToAsync($"//{nameof(Profile)}");
+                await Shell.Current.GoToAsync($"//{PageName}");
             }
             else
                 await Application.Current.MainPage.DisplayAlert("Üres mező", "Kérlek töltsd ki az összes mezőt!", "OK");
@@ -127,6 +134,11 @@ namespace MobileApp.ViewModels
                     ProfilePicture = "Resources/drawable/apple.png";
                     break;
             }
+        }
+        public string PageName
+        {
+            get => pageName;
+            set => SetProperty(ref pageName, value);
         }
     }
 }
